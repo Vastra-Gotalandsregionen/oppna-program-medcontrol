@@ -1,25 +1,14 @@
 <?xml version="1.0"?>
-<!--
-This is the System-level Maven POM.
-
-Usage:  Define all truly common things for the system here.
-        For example: versions of third-party dependencies used throughout the
-        system.
-
-
-Template version: 1.2-SNAPSHOT
-Generation time : 2009-12-09 10:55:56 CET
- -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <!--
+    This is the System-level Maven POM. Usage: Define all truly common things for the system here. For example: versions of third-party dependencies
+    used throughout the system. Template version: 1.2-SNAPSHOT Generation time : 2009-12-09 10:55:56 CET
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-<!-- TODO: define common props in JAVG-parent-POM  
-  <parent>
-    <groupId>JAVG_PARENT_POM</groupId>
-    <artifactId>JAVG_PARENT_POM</artifactId>
-    <version>1.1-RC1</version>
-  </parent>
--->
+  <!--
+    TODO: define common props in JAVG-parent-POM <parent> <groupId>JAVG_PARENT_POM</groupId> <artifactId>JAVG_PARENT_POM</artifactId>
+    <version>1.1-RC1</version> </parent>
+  -->
   <groupId>medcontrol.medcontrol</groupId>
   <artifactId>medcontrol-system</artifactId>
   <packaging>pom</packaging>
@@ -38,14 +27,23 @@ Generation time : 2009-12-09 10:55:56 CET
   <modules>
     <module>core-bc</module>
   </modules>
-  
+
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.google.code.maven-license-plugin</groupId>
+          <artifactId>maven-license-plugin</artifactId>
+          <version>1.4.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
           <optimize>false</optimize>
           <debug>true</debug>
         </configuration>
@@ -109,23 +107,23 @@ Generation time : 2009-12-09 10:55:56 CET
         </executions>
       </plugin>
     </plugins>
-    
-	<!-- needed for SVN-deployment -->
-	<extensions>
-		<extension>
-			<groupId>org.jvnet.wagon-svn</groupId>
-			<artifactId>wagon-svn</artifactId>
-			<version>1.8</version>
-		</extension>
-	</extensions>
+
+    <!-- needed for SVN-deployment -->
+    <extensions>
+      <extension>
+        <groupId>org.jvnet.wagon-svn</groupId>
+        <artifactId>wagon-svn</artifactId>
+        <version>1.8</version>
+      </extension>
+    </extensions>
   </build>
 
   <dependencies>
     <dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
-		</dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -134,15 +132,18 @@ Generation time : 2009-12-09 10:55:56 CET
     </dependency>
   </dependencies>
 
-<!-- Used by "mvn deploy" to deploy artefacts to a central maven repository. Use settings.xml to set username and password for this repository, see wagon-svn for more information -->
+  <!--
+    Used by "mvn deploy" to deploy artefacts to a central maven repository. Use settings.xml to set username and password for this repository, see
+    wagon-svn for more information
+  -->
   <distributionManagement>
-     <repository>
+    <repository>
       <uniqueVersion>false</uniqueVersion>
       <id>svn-repo</id>
       <url>CHANGE_TO_PROJECT_SPECIFIC_SVN_REPO</url> <!--E.g. svn:http://server/svn/maven/repo/ -->
     </repository>
   </distributionManagement>
-  
+
   <repositories>
     <repository>
       <id>atlassian-public</id>
@@ -154,13 +155,13 @@ Generation time : 2009-12-09 10:55:56 CET
         <enabled>true</enabled>
       </releases>
     </repository>
-    
+
     <repository>
       <id>atlassian-m1-repository</id>
       <url>https://maven.atlassian.com/maven1</url>
       <layout>legacy</layout>
     </repository>
-    
+
     <repository>
       <id>oppnaprogram</id>
       <name>oppna program repo</name>
@@ -168,6 +169,16 @@ Generation time : 2009-12-09 10:55:56 CET
       <releases>
         <updatePolicy>never</updatePolicy>
         <checksumPolicy>warn</checksumPolicy>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>maven-milestone</id>
+      <url>http://maven.springframework.org/milestone/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
         <enabled>true</enabled>
       </releases>
     </repository>
@@ -198,7 +209,7 @@ Generation time : 2009-12-09 10:55:56 CET
       </releases>
     </pluginRepository>
   </pluginRepositories>
-  
+
   <profiles>
     <profile>
       <id>prod</id>
@@ -211,7 +222,7 @@ Generation time : 2009-12-09 10:55:56 CET
               <debug>false</debug>
             </configuration>
           </plugin>
-		</plugins>
+        </plugins>
       </build>
     </profile>
   </profiles>
