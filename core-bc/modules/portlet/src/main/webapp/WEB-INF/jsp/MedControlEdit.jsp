@@ -22,11 +22,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<!--  
 <style type="text/css">
-  <%@ include file="/style/style.css"%>
+  <@ include file="/style/style.css"%>
 </style>
+-->
 
-<fmt:setBundle basename="se.vgregion.portal.myusdissues.MyUsdIssues" />
+<fmt:setBundle basename="se.vgregion.portal.medcontrol.MedControl" />
 
 <portlet:defineObjects />
 

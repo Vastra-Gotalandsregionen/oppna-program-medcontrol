@@ -28,11 +28,19 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @RequestMapping("VIEW")
 public class MedControlViewController {
 
-  
-  public static final String VIEW_JSP_URL = "MedControl";
-  
-  @RenderMapping
-  public String showMedControlNotifications(ModelMap model, PortletPreferences preferences) {
-    return VIEW_JSP_URL; 
-  }
+    private static final String VIEW_JSP_URL = "MedControl";
+
+    /**
+     * RenderMapping handler, for display of MedControl notifications.
+     * 
+     * @param model
+     *            A Spring MVC ModelMap
+     * @param preferences
+     *            PortletPreferences for current portlet
+     * @return view (jsp) to be rendered
+     */
+    @RenderMapping
+    public String showMedControlNotifications(ModelMap model, PortletPreferences preferences) {
+        return VIEW_JSP_URL;
+    }
 }
