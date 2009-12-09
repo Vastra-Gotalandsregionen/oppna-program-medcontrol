@@ -27,50 +27,50 @@ import java.util.Date;
  */
 public class DeviationCase {
 
-  private String caseNumber;
-  private String description;
-  private boolean hasActingRole;
-  private String url;
-  private Date registeredDate;
+    private String caseNumber;
+    private String description;
+    private boolean hasActingRole;
+    private String url;
+    private Date registeredDate;
 
-  public String getCaseNumber() {
-    return caseNumber;
-  }
+    public String getCaseNumber() {
+        return caseNumber;
+    }
 
-  public void setCaseNumber(String caseNumber) {
-    this.caseNumber = caseNumber;
-  }
+    public void setCaseNumber(String caseNumber) {
+        this.caseNumber = caseNumber;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public boolean isHasActingRole() {
-    return hasActingRole;
-  }
+    public boolean isHasActingRole() {
+        return hasActingRole;
+    }
 
-  public void setHasActingRole(boolean hasActingRole) {
-    this.hasActingRole = hasActingRole;
-  }
+    public void setHasActingRole(boolean hasActingRole) {
+        this.hasActingRole = hasActingRole;
+    }
 
-  public String getUrl() {
-    return url;
-  }
+    public String getUrl() {
+        return url;
+    }
 
-  public void setUrl(String url) {
-    this.url = url;
-  }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-  public Date getRegisteredDate() {
-    return registeredDate;
-  }
+    public Date getRegisteredDate() {
+        return (Date) registeredDate.clone();
+    }
 
-  public void setRegisteredDate(Date registeredDate) {
-    this.registeredDate = registeredDate;
-  }
+    public void setRegisteredDate(Date registeredDate) {
+        this.registeredDate = (Date) registeredDate.clone();
+    }
 
 }
