@@ -107,6 +107,17 @@
           </execution>
         </executions>
       </plugin>
+	  <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>cobertura-maven-plugin</artifactId>
+		<configuration>
+			<instrumentation>
+				<excludes>
+					<exclude>se/vgregion/portal/medcontrol/ws/*.class</exclude>
+				</excludes>
+			</instrumentation>
+		</configuration>
+	</plugin>
     </plugins>
 
     <!-- needed for SVN-deployment -->
@@ -118,6 +129,37 @@
       </extension>
     </extensions>
   </build>
+  
+  <reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<!--
+					Temporary version loaded from Unbound Snapshots repository until a
+					"real" 2.4-SNAPSHOT is available from the maven master
+					repositories.
+				-->
+				<version>2.4-atlassian-2-SNAPSHOT</version>
+				<configuration>
+					<configLocation>${basedir}/src/test/resources/checkstyle/checkstyle.xml</configLocation>
+					<suppressionsLocation>${basedir}/src/test/resources/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+					<propertyExpansion>project_loc=${basedir}</propertyExpansion>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
   <dependencies>
     <dependency>
