@@ -37,6 +37,12 @@
           <artifactId>maven-license-plugin</artifactId>
           <version>1.4.0</version>
         </plugin>
+		<plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.0.1</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -146,18 +152,23 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<!--
-					Temporary version loaded from Unbound Snapshots repository until a
-					"real" 2.4-SNAPSHOT is available from the maven master
-					repositories.
-				-->
-				<version>2.4-atlassian-2-SNAPSHOT</version>
+				<version>2.4</version>
 				<configuration>
-					<configLocation>${basedir}/src/test/resources/checkstyle/checkstyle.xml</configLocation>
-					<suppressionsLocation>${basedir}/src/test/resources/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
-					<propertyExpansion>project_loc=${basedir}</propertyExpansion>
+				  <configLocation>http://oppna-program.googlecode.com/svn/dev-environment/checkstyle/sun_checks_vgr.xml</configLocation>
+				  <excludes>se/vgregion/portal/medcontrol/ws/*.java</excludes>
 				</configuration>
-			</plugin>
+			  </plugin>
+			
+			<plugin>
+				  <groupId>org.codehaus.mojo</groupId>
+				  <artifactId>findbugs-maven-plugin</artifactId>
+				  <configuration>
+					<findbugsXmlOutput>true</findbugsXmlOutput>
+					<findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+					<xmlOutput>true</xmlOutput>
+					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+				  </configuration>
+			  </plugin>
 		</plugins>
 	</reporting>
 
