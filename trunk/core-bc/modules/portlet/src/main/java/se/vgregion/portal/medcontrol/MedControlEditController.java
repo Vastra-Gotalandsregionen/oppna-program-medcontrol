@@ -28,13 +28,20 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @RequestMapping("EDIT")
 public class MedControlEditController {
 
-  
-  
-  private static final String CONFIG_JSP = "MedControlEdit";
+    private static final String CONFIG_JSP = "MedControlEdit";
 
-  @RenderMapping
-  public String showPreferences(ModelMap model, PortletPreferences preferences) {
-    return CONFIG_JSP;
-  }
+    /**
+     * RenderMapping handler, for display of portlet preferences.
+     * 
+     * @param model
+     *            A Spring MVC ModelMap
+     * @param preferences
+     *            PortletPreferences for current portlet
+     * @return view (jsp) to be rendered
+     */
+    @RenderMapping
+    public String showPreferences(ModelMap model, PortletPreferences preferences) {
+        return CONFIG_JSP;
+    }
 
 }
