@@ -23,9 +23,12 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
   version="2.4">
 
-  <display-name>CHANGE ME!</display-name>
-  <description>CHANGE ME!</description>
-
+  <display-name>MedControl</display-name>
+  <description>MedControl</description>
+  
+  <listener>
+    <listener-class>com.liferay.portal.kernel.servlet.PortletContextListener</listener-class>
+  </listener>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
@@ -47,4 +50,20 @@
     <servlet-name>view</servlet-name>
     <url-pattern>/WEB-INF/servlet/view</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MedControl</servlet-name>
+    <servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
+    <init-param>
+      <param-name>portlet-class</param-name>
+      <param-value>org.springframework.web.portlet.DispatcherPortlet</param-value>
+    </init-param>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>MedControl</servlet-name>
+    <url-pattern>/MedControl/*</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
