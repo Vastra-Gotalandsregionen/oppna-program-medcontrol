@@ -1,38 +1,72 @@
 <?xml version="1.0"?>
-	<!--
+  <!--
 		This is the Service-composite Maven POM. Template version:
 		1.2-SNAPSHOT Generation time : 2009-12-09 10:55:56 CET
 	-->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>medcontrol.medcontrol</groupId>
-		<artifactId>medcontrol-core-bc</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	<groupId>medcontrol.medcontrol</groupId>
-	<artifactId>medcontrol-core-bc-composite-svc</artifactId>
-	<packaging>jar</packaging>
-	<name>${project.artifactId}</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>medcontrol.medcontrol</groupId>
+    <artifactId>medcontrol-core-bc</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>medcontrol.medcontrol</groupId>
+  <artifactId>medcontrol-core-bc-composite-svc</artifactId>
+  <packaging>jar</packaging>
+  <name>${project.artifactId}</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>medcontrol-core-bc-composite-types</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <!-- Dependency fixes m2eclipse issues -->
+        <dependencies>
+          <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.9.1</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>1</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlDirectory>${basedir}/../schema/src/main/wsdl/</wsdlDirectory>
+              <wsdlFiles>
+                <wsdlFile>medcontrol.wsdl</wsdlFile>
+              </wsdlFiles>
+              <packageName>se.vgregion.portal.medcontrol.ws</packageName>
+              <extension>true</extension>
+              <sourceDestDir>${project.build.directory}/generated-sources/jaxws</sourceDestDir>
+              <staleFile>${project.build.directory}/generated-sources/jaxws/stale/.staleFlagMedcontrol</staleFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.fw.version}</version>
-		</dependency>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>medcontrol-core-bc-composite-types</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.fw.version}</version>
-		</dependency>
-	</dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.fw.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.fw.version}</version>
+    </dependency>
+  </dependencies>
 </project>
