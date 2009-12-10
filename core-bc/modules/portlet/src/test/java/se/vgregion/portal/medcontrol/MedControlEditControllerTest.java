@@ -15,8 +15,25 @@
  *   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
  *   Boston, MA 02111-1307  USA
  */
-/**
- * Containing medcontrol controllers.
- */
 package se.vgregion.portal.medcontrol;
 
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class MedControlEditControllerTest {
+
+  private MedControlEditController medControlEditController;
+
+  @Before
+  public void setUp() throws Exception {
+    medControlEditController = new MedControlEditController();
+  }
+
+  @Test
+  public void testShowPreferences() {
+    assertEquals("MedControlEdit", medControlEditController.showPreferences(null, null));
+  }
+
+}
