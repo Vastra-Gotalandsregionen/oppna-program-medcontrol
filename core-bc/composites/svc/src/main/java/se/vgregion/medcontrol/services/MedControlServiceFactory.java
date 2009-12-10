@@ -25,7 +25,6 @@ public class MedControlServiceFactory {
   
   public static MyCasesServiceSoap getMyCasesServiceSoap() {
     return new MyCasesService().getMyCasesServiceSoap();
-    //return new MyCasesServiceSoapDummy();
   }
 
 }
