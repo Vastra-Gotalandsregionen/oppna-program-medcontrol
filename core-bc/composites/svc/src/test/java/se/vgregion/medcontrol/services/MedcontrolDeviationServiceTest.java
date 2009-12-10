@@ -43,17 +43,13 @@ public class MedcontrolDeviationServiceTest {
 
   private static final String USER_1 = "user-1";
   private MedcontrolDeviationService medcontrolDeviationService;
-  private MockArrayOfCase mockArrayOfCase;
   private MockMyCasesServiceSoap mockMyCasesServiceSoap;
   private List<Case> cases;
 
   @Before
   public void setUp() throws Exception {
     medcontrolDeviationService = new MedcontrolDeviationService();
-    mockArrayOfCase = new MockArrayOfCase();
     mockMyCasesServiceSoap = new MockMyCasesServiceSoap();
-    // Add ArrayOfCase mock to soap mock
-    mockMyCasesServiceSoap.mockArrayOfCase = mockArrayOfCase;
     medcontrolDeviationService.setMyCasesServiceSoap(mockMyCasesServiceSoap);
     generateCaseList();
   }
@@ -77,7 +73,7 @@ public class MedcontrolDeviationServiceTest {
     cases.add(mockCase1);
     cases.add(mockCase2);
     // Add mock case to list
-    mockArrayOfCase.Cases = cases;
+    mockMyCasesServiceSoap.getMockArrayOfCase().getCase().addAll(cases);
 
   }
 
@@ -109,45 +105,39 @@ public class MedcontrolDeviationServiceTest {
 
   @Test
   public void testNullDateValue() {
-    mockArrayOfCase.Cases = Arrays.asList(new Case());
+    mockMyCasesServiceSoap.getMockArrayOfCase().getCase().clear();
+    mockMyCasesServiceSoap.getMockArrayOfCase().getCase().addAll(Arrays.asList(new Case()));
     List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1);
     assertEquals(1, listDeviationCases.size());
   }
 
   @Test
   public void testInvalidDateFormat() {
+ 
+    StringWriter loggerView = getLoggerView(Level.ERROR);
+    Case case1 = new Case();
+    case1.setRegisteredDate("12-12-2009");
+    mockMyCasesServiceSoap.getMockArrayOfCase().getCase().clear();
+    mockMyCasesServiceSoap.getMockArrayOfCase().getCase().addAll(Arrays.asList(case1));
+    List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1);
+    assertEquals(1, listDeviationCases.size());
+    assertTrue(loggerView.toString().contains("Not valid date"));
+  }
+  
+  @Test(expected = DeviationServiceException.class)
+  public void testWebServiceException() {
+    mockMyCasesServiceSoap.setThrowException(true);
+    StringWriter loggerView = getLoggerView(Level.ERROR);
+    medcontrolDeviationService.listDeviationCases(USER_1);
+    assertTrue(loggerView.toString().contains("MedControl webservice exception"));
+  }
+  
+  private StringWriter getLoggerView(Level logLevel) {
     Logger logger = Logger.getLogger(MedcontrolDeviationService.class);
-    logger.setLevel(Level.ERROR);
+    logger.setLevel(logLevel);
     final StringWriter writer = new StringWriter();
     Appender appender = new WriterAppender(new SimpleLayout(), writer);
     logger.addAppender(appender);
-
-    Case case1 = new Case();
-    case1.setRegisteredDate("12-12-2009");
-    mockArrayOfCase.Cases = Arrays.asList(case1);
-    List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1);
-    assertEquals(1, listDeviationCases.size());
-    assertTrue(writer.toString().contains("Not valid date"));
+    return writer;
   }
-
-  static class MockMyCasesServiceSoap implements MyCasesServiceSoap {
-
-    MockArrayOfCase mockArrayOfCase;
-
-    @Override
-    public ArrayOfCase getUserCases(String userId, boolean checkForActingRole, boolean includeOnlyActingRole,
-        String culture) {
-      return mockArrayOfCase;
-    }
-  }
-
-  static class MockArrayOfCase extends ArrayOfCase {
-    List<Case> Cases = new ArrayList<Case>();
-
-    @Override
-    public List<Case> getCase() {
-      return Cases;
-    }
-  }
-
 }

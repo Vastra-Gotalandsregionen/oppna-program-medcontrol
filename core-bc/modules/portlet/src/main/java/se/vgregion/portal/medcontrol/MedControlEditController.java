@@ -28,7 +28,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @RequestMapping("EDIT")
 public class MedControlEditController {
 
-    private static final String CONFIG_JSP = "MedControlEdit";
+    private static final String PREFERENCES_VIEW = "medcontrol_preferences";
 
     /**
      * RenderMapping handler, for display of portlet preferences.
@@ -41,7 +41,7 @@ public class MedControlEditController {
      */
     @RenderMapping
     public String showPreferences(ModelMap model, PortletPreferences preferences) {
-        return CONFIG_JSP;
+        return PREFERENCES_VIEW;
     }
 
 }

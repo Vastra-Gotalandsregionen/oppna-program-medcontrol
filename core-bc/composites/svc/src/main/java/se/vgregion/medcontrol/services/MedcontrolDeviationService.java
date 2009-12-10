@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.ws.WebServiceException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +62,7 @@ public class MedcontrolDeviationService implements DeviationService {
   private List<DeviationCase> populateDeviations(String userId) {
     List<DeviationCase> deviationCases = new ArrayList<DeviationCase>();
     if (!StringUtils.isBlank(userId)) {
-      ArrayOfCase userCases = myCasesServiceSoap.getUserCases(userId, false, false, "");
+      ArrayOfCase userCases = callService(userId);
       List<Case> cases = userCases.getCase();
       DeviationCase deviationCase = null;
       for (Case medcontrolCase : cases) {
@@ -74,6 +76,19 @@ public class MedcontrolDeviationService implements DeviationService {
       }
     }
     return deviationCases;
+  }
+
+  private ArrayOfCase callService(String userId) {
+    ArrayOfCase arrayOfCase = new ArrayOfCase();
+
+    try {
+      arrayOfCase = myCasesServiceSoap.getUserCases(userId, true, true, "");
+    } catch (WebServiceException e) {
+      LOGGER.error("MedControl webservice exception", e);
+      throw new DeviationServiceException("Unhandled exception from webservice", e);
+    }
+
+    return arrayOfCase;
   }
 
   private Date parseDate(String date) {

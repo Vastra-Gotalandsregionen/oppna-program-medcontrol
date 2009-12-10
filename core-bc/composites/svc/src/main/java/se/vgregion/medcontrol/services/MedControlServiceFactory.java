@@ -15,25 +15,17 @@
  *   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
  *   Boston, MA 02111-1307  USA
  */
-package se.vgregion.portal.medcontrol;
+package se.vgregion.medcontrol.services;
 
-import static org.junit.Assert.*;
+import se.vgregion.portal.medcontrol.ws.MyCasesService;
+import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
 
-import org.junit.Before;
-import org.junit.Test;
-
-public class MedControlEditControllerTest {
-
-  private MedControlEditController medControlEditController;
-
-  @Before
-  public void setUp() throws Exception {
-    medControlEditController = new MedControlEditController();
-  }
-
-  @Test
-  public void testShowPreferences() {
-    assertEquals("medcontrol_preferences", medControlEditController.showPreferences(null, null));
+public class MedControlServiceFactory {
+  
+  
+  public static MyCasesServiceSoap getMyCasesServiceSoap() {
+    return new MyCasesService().getMyCasesServiceSoap();
+    //return new MyCasesServiceSoapDummy();
   }
 
 }

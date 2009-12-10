@@ -23,17 +23,16 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!--  
 <style type="text/css">
-  <@ include file="/style/style.css"%>
+  <%@ include file="/style/style.css"%>
 </style>
--->
 
 <fmt:setBundle basename="se.vgregion.portal.medcontrol.MedControl" />
 
-<portlet:defineObjects />
-
-<portlet:actionURL var="formAction" />
-
-Medical control notification page
-
+<div class="module-content accordion">
+<ul class="list emails">
+  <c:forEach items="${devCaseList}" var="case">
+    <li class="unread"><a target="_blank" href="${case.url}?id=${case.caseNumber}">ID=${case.caseNumber}<span>  ${case.description}</span></a></li>
+  </c:forEach>
+</ul>
+</div>
