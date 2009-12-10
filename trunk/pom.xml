@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
   <!--
-    This is the System-level Maven POM. Usage: Define all truly common things for the system here. For example: versions of third-party dependencies
-    used throughout the system. Template version: 1.2-SNAPSHOT Generation time : 2009-12-09 10:55:56 CET
+    This is the System-level Maven POM. Usage: Define all truly common things for the system here. For example:
+    versions of third-party dependencies used throughout the system. Template version: 1.2-SNAPSHOT Generation time
+    : 2009-12-09 10:55:56 CET
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!--
-    TODO: define common props in JAVG-parent-POM <parent> <groupId>JAVG_PARENT_POM</groupId> <artifactId>JAVG_PARENT_POM</artifactId>
-    <version>1.1-RC1</version> </parent>
+    TODO: define common props in JAVG-parent-POM <parent> <groupId>JAVG_PARENT_POM</groupId>
+    <artifactId>JAVG_PARENT_POM</artifactId> <version>1.1-RC1</version> </parent>
   -->
   <groupId>medcontrol.medcontrol</groupId>
   <artifactId>medcontrol-system</artifactId>
@@ -22,7 +24,7 @@
     <apache.cxf.version>2.1.1</apache.cxf.version>
     <portlet-api.version>2.0</portlet-api.version>
     <jstl.version>1.2</jstl.version>
-	<slf4j.version>1.5.10</slf4j.version>
+    <slf4j.version>1.5.10</slf4j.version>
   </properties>
 
   <modules>
@@ -37,7 +39,7 @@
           <artifactId>maven-license-plugin</artifactId>
           <version>1.4.0</version>
         </plugin>
-		<plugin>
+        <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
           <!-- Lock down plugin version for build reproducibility -->
@@ -113,17 +115,17 @@
           </execution>
         </executions>
       </plugin>
-	  <plugin>
-		<groupId>org.codehaus.mojo</groupId>
-		<artifactId>cobertura-maven-plugin</artifactId>
-		<configuration>
-			<instrumentation>
-				<excludes>
-					<exclude>se/vgregion/portal/medcontrol/ws/*.class</exclude>
-				</excludes>
-			</instrumentation>
-		</configuration>
-	</plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <instrumentation>
+            <excludes>
+              <exclude>se/vgregion/portal/medcontrol/ws/*.class</exclude>
+            </excludes>
+          </instrumentation>
+        </configuration>
+      </plugin>
     </plugins>
 
     <!-- needed for SVN-deployment -->
@@ -135,48 +137,59 @@
       </extension>
     </extensions>
   </build>
-  
-  <reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<configuration>
-					<formats>
-						<format>html</format>
-						<format>xml</format>
-					</formats>
-				</configuration>
-			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-				  <configLocation>http://oppna-program.googlecode.com/svn/dev-environment/checkstyle/sun_checks_vgr.xml</configLocation>
-				  <excludes>se/vgregion/portal/medcontrol/ws/*.java</excludes>
-				</configuration>
-			  </plugin>
-			  
-			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-pmd-plugin</artifactId>
-			  <version>2.3</version>
-		  </plugin>
-			
-			<plugin>
-				  <groupId>org.codehaus.mojo</groupId>
-				  <artifactId>findbugs-maven-plugin</artifactId>
-				  <configuration>
-					<findbugsXmlOutput>true</findbugsXmlOutput>
-					<findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-					<xmlOutput>true</xmlOutput>
-					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-				  </configuration>
-			  </plugin>
-		</plugins>
-	</reporting>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <configLocation>http://oppna-program.googlecode.com/svn/dev-environment/checkstyle/sun_checks_vgr.xml</configLocation>
+          <excludes>se/vgregion/portal/medcontrol/ws/*.java</excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <formats>
+            <format>html</format>
+            <format>xml</format>
+          </formats>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.6.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>2.3</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>surefire-report-maven-plugin</artifactId>
+        <inherited>true</inherited>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <findbugsXmlOutput>true</findbugsXmlOutput>
+          <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+          <xmlOutput>true</xmlOutput>
+          <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 
   <dependencies>
     <dependency>
@@ -184,7 +197,7 @@
       <artifactId>log4j</artifactId>
       <version>1.2.14</version>
     </dependency>
-	<dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
@@ -194,7 +207,7 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
-	<dependency>
+    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.4</version>
@@ -208,8 +221,8 @@
   </dependencies>
 
   <!--
-    Used by "mvn deploy" to deploy artefacts to a central maven repository. Use settings.xml to set username and password for this repository, see
-    wagon-svn for more information
+    Used by "mvn deploy" to deploy artefacts to a central maven repository. Use settings.xml to set username and
+    password for this repository, see wagon-svn for more information
   -->
   <distributionManagement>
     <repository>
