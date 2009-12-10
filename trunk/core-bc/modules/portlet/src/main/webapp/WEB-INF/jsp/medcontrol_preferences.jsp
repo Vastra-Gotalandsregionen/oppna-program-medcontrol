@@ -22,18 +22,25 @@
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-<!--  
-<style type="text/css">
-  <@ include file="/style/style.css"%>
-</style>
--->
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
 
 <fmt:setBundle basename="se.vgregion.portal.medcontrol.MedControl" />
 
+<h3><fmt:message key="preferences.title" /></h3>
+
 <portlet:defineObjects />
+
+<portlet:actionURL var="savePreferences" />
 
 <portlet:actionURL var="formAction" />
 
-Preference page
-
+<form:form modelAttribute="medControlFormBacker" htmlEscape="false" method="post" action="${formAction}">
+  <form:errors path="listItemLimitation" cssStyle="color:red" />
+  <table>
+    <tr>
+      <td><fmt:message key="max.in.list" />:</td>
+       <td><form:input path="listItemLimitation" size="5" maxlength="5" /></td>      
+    </tr>
+  </table>
+  <input value=<fmt:message key="save" /> type="submit">
+</form:form>
