@@ -70,7 +70,11 @@ public class DeviationCase {
     }
 
     public void setRegisteredDate(Date registeredDate) {
-        this.registeredDate = (Date) registeredDate.clone();
+        if (registeredDate == null) {
+            this.registeredDate = null;
+        } else {
+            this.registeredDate = (Date) registeredDate.clone();
+        }
     }
 
 }
