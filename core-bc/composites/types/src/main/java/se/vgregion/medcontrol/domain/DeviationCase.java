@@ -65,10 +65,25 @@ public class DeviationCase {
         this.url = url;
     }
 
+    /**
+     * Date cloning getter.
+     * 
+     * @return cloned date
+     */
     public Date getRegisteredDate() {
-        return (Date) registeredDate.clone();
+        if (registeredDate == null) {
+            return null;
+        } else {
+            return (Date) registeredDate.clone();
+        }
     }
 
+    /**
+     * Date cloning setter.
+     * 
+     * @param registeredDate
+     *            date to clone and set
+     */
     public void setRegisteredDate(Date registeredDate) {
         if (registeredDate == null) {
             this.registeredDate = null;
