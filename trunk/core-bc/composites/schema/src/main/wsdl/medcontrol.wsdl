@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservice_provider.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://webservice_provider.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://mycasesservice.munkeby.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://mycasesservice.munkeby.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no built in security and should not be available for users.</wsdl:documentation>
   <wsdl:types>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://webservice_provider.com/">
+    <s:schema elementFormDefault="qualified" targetNamespace="http://mycasesservice.munkeby.com/">
       <s:element name="GetUserCases">
         <s:complexType>
           <s:sequence>
@@ -57,7 +57,7 @@
   <wsdl:binding name="MyCasesServiceSoap" type="tns:MyCasesServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetUserCases">
-      <soap:operation soapAction="http://webservice_provider.com/GetUserCases" style="document" />
+      <soap:operation soapAction="http://mycasesservice.munkeby.com/GetUserCases" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -69,7 +69,7 @@
   <wsdl:binding name="MyCasesServiceSoap12" type="tns:MyCasesServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetUserCases">
-      <soap12:operation soapAction="http://webservice_provider.com/GetUserCases" style="document" />
+      <soap12:operation soapAction="http://mycasesservice.munkeby.com/GetUserCases" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -81,10 +81,10 @@
   <wsdl:service name="MyCasesService">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no built in security and should not be available for users.</wsdl:documentation>
     <wsdl:port name="MyCasesServiceSoap" binding="tns:MyCasesServiceSoap">
-      <soap:address location="http://localhost:4322/MyCasesService.asmx" />
+      <soap:address location="http://ws_provider_domain.com/MyCasesService/MyCasesService.asmx" />
     </wsdl:port>
     <wsdl:port name="MyCasesServiceSoap12" binding="tns:MyCasesServiceSoap12">
-      <soap12:address location="http://localhost:4322/MyCasesService.asmx" />
+      <soap12:address location="http://ws_provider_domain.com/MyCasesService/MyCasesService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
