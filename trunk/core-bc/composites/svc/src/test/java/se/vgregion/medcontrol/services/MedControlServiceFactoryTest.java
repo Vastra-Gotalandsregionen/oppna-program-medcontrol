@@ -17,7 +17,7 @@
  */
 package se.vgregion.medcontrol.services;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -25,11 +25,13 @@ import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
 
 public class MedControlServiceFactoryTest {
 
-  
-  @Test
-  public void testGetMyCasesServiceSoap() {
-    MedControlServiceFactory medControlServiceFactory = new MedControlServiceFactory();
-    assertTrue(medControlServiceFactory.getMyCasesServiceSoap() instanceof MyCasesServiceSoap);
-  }
+    @Test
+    public void testGetMyCasesServiceSoap() {
+        assertTrue(MedControlServiceFactory.getMyCasesServiceSoap() instanceof MyCasesServiceSoap);
+    }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCannotInstantiate() {
+        new MedControlServiceFactory();
+    }
 }
