@@ -39,73 +39,82 @@ import se.vgregion.portal.medcontrol.domain.MedControlFormBacker;
 @Controller
 @RequestMapping("EDIT")
 public class MedControlEditController {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(MedControlEditController.class);
 
-  private static final String PREFERENCES_VIEW = "medcontrol_preferences";
-  
-  @Autowired
-  private Validator validator;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MedControlEditController.class);
 
-  public void setValidator(Validator validator) {
-    this.validator = validator;
-  } 
+    private static final String PREFERENCES_VIEW = "medcontrol_preferences";
 
-  /**
-   * PortletPreferences attribute key for list max size.
-   */
-  public static final String MEDCONTROL_PREFS_LIST_SIZE = "listItemLimitation";
+    @Autowired
+    private Validator validator;
 
-  /**
-   * Set values for formBackingObject from the PortletPreferences.
-   * 
-   * @param preferences PortletPreferences
-   * @return MedControlPreferences object with values saved in preferences.
-   */
-  @ModelAttribute("medControlFormBacker")
-  public MedControlFormBacker formBackingObject(PortletPreferences preferences) {
-    MedControlFormBacker medControlFormBacker = new MedControlFormBacker();
-    medControlFormBacker.setListItemLimitation(Integer.valueOf(preferences.getValue(MEDCONTROL_PREFS_LIST_SIZE, "5")));
-    return medControlFormBacker;
-  }
-
-  /**
-   * RenderMapping handler, for display of portlet preferences.
-   * 
-   * @param medControlPreferences Command bean.
-   * @param bindingResult Spring BindingResult bean.
-   * @param preferences PortletPreferences to save portlet preferences to.
-   * @throws ReadOnlyException Throws if value couldn't be saved to the PortletPreferences.
-   */
-  @RenderMapping
-  public String showPreferences(@ModelAttribute("medControlFormBacker") MedControlFormBacker medControlFormBacker,
-      BindingResult bindingResult) {
-    validator.validate(medControlFormBacker, bindingResult);
-    return PREFERENCES_VIEW;
-  }
-
-  /**
-   * Save portlet preferences values to the PortletPreferences.
-   * 
-   * @param medControlPreferences Command bean.
-   * @param bindingResult Spring BindingResult bean.
-   * @param preferences PortletPreferences to save portlet preferences to.
-   * @throws ReadOnlyException Throws if value couldn't be saved to the PortletPreferences.
-   */
-  @ActionMapping
-  public void savePreferences(@ModelAttribute("medControlFormBacker") MedControlFormBacker medControlFormBacker,
-      BindingResult bindingResult, PortletPreferences preferences) throws ReadOnlyException {
-
-    validator.validate(medControlFormBacker, bindingResult);
-    if (!bindingResult.hasErrors()) {
-      preferences.setValue(MEDCONTROL_PREFS_LIST_SIZE, Integer.toString(medControlFormBacker.getListItemLimitation()));
-      try {
-        preferences.store();
-      } catch (ValidatorException e) {
-        LOGGER.error("Validation error when storing preferences.", e);
-      } catch (IOException e) {
-        LOGGER.error("Error when storing preferences.", e);
-      }
+    public void setValidator(Validator validator) {
+        this.validator = validator;
     }
-  }
+
+    /**
+     * PortletPreferences attribute key for list max size.
+     */
+    public static final String MEDCONTROL_PREFS_LIST_SIZE = "listItemLimitation";
+
+    /**
+     * Set values for formBackingObject from the PortletPreferences.
+     * 
+     * @param preferences
+     *            PortletPreferences
+     * @return MedControlPreferences object with values saved in preferences.
+     */
+    @ModelAttribute("medControlFormBacker")
+    public MedControlFormBacker formBackingObject(PortletPreferences preferences) {
+        MedControlFormBacker medControlFormBacker = new MedControlFormBacker();
+        medControlFormBacker.setListItemLimitation(Integer.valueOf(preferences.getValue(
+                MEDCONTROL_PREFS_LIST_SIZE, "5")));
+        return medControlFormBacker;
+    }
+
+    /**
+     * RenderMapping handler, for display of portlet preferences.
+     * 
+     * @param medControlFormBacker
+     *            Command bean.
+     * @param bindingResult
+     *            Spring BindingResult bean.
+     * @return view (jsp) to be rendered
+     */
+    @RenderMapping
+    public String showPreferences(
+            @ModelAttribute("medControlFormBacker") MedControlFormBacker medControlFormBacker,
+            BindingResult bindingResult) {
+        validator.validate(medControlFormBacker, bindingResult);
+        return PREFERENCES_VIEW;
+    }
+
+    /**
+     * Save portlet preferences values to the PortletPreferences.
+     * 
+     * @param medControlFormBacker
+     *            Command bean.
+     * @param bindingResult
+     *            Spring BindingResult bean.
+     * @param preferences
+     *            PortletPreferences to save portlet preferences to.
+     * @throws ReadOnlyException
+     *             Throws if value couldn't be saved to the PortletPreferences.
+     */
+    @ActionMapping
+    public void savePreferences(@ModelAttribute("medControlFormBacker") MedControlFormBacker medControlFormBacker,
+            BindingResult bindingResult, PortletPreferences preferences) throws ReadOnlyException {
+
+        validator.validate(medControlFormBacker, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            preferences.setValue(MEDCONTROL_PREFS_LIST_SIZE, Integer.toString(medControlFormBacker
+                    .getListItemLimitation()));
+            try {
+                preferences.store();
+            } catch (ValidatorException e) {
+                LOGGER.error("Validation error when storing preferences.", e);
+            } catch (IOException e) {
+                LOGGER.error("Error when storing preferences.", e);
+            }
+        }
+    }
 }
