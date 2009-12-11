@@ -1,0 +1,11 @@
+.list li {
+	margin: 0;
+	padding: 0 0px 1px;
+	position: relative;
+}
+
+ul li,ol ul li {
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+}
