@@ -38,46 +38,48 @@ import se.vgregion.medcontrol.services.DeviationServiceException;
 @RequestMapping("VIEW")
 public class MedControlViewController {
 
-  private static final String VIEW_JSP = "medcontrol";
+    private static final String VIEW_JSP = "medcontrol";
 
-  private static final String VIEW_ERROR_JSP = "fatal_error";
+    private static final String VIEW_ERROR_JSP = "fatal_error";
 
-  private DeviationService deviationService;
+    @Autowired
+    private DeviationService deviationService;
 
-  @Autowired
-  public void setDeviationService(DeviationService deviationService) {
-    this.deviationService = deviationService;
-  }
-
-  /**
-   * RenderMapping handler, for display of MedControl notifications.
-   * 
-   * @param model A Spring MVC ModelMap
-   * @param preferences PortletPreferences for current portlet
-   * @return view (jsp) to be rendered
-   */
-  @RenderMapping
-  public String showMedControlNotifications(ModelMap model, RenderRequest request, PortletPreferences preferences) {
-    String returnView = VIEW_JSP;
-    @SuppressWarnings("unchecked")
-    Map<String, ?> attributes = (Map<String, ?>) request.getAttribute(PortletRequest.USER_INFO);
-    String userId = getUserId(attributes);
-
-    try {
-      List<DeviationCase> devCaseList = deviationService.listDeviationCases(userId);
-      model.addAttribute("devCaseList", devCaseList);
-    } catch (DeviationServiceException e) {
-      returnView = VIEW_ERROR_JSP;
+    public void setDeviationService(DeviationService deviationService) {
+        this.deviationService = deviationService;
     }
 
-    return returnView;
-  }
+    /**
+     * RenderMapping handler, for display of MedControl notifications.
+     * 
+     * @param model
+     *            A Spring MVC ModelMap
+     * @param preferences
+     *            PortletPreferences for current portlet
+     * @return view (jsp) to be rendered
+     */
+    @RenderMapping
+    public String showMedControlNotifications(ModelMap model, RenderRequest request, PortletPreferences preferences) {
+        String returnView = VIEW_JSP;
+        @SuppressWarnings("unchecked")
+        Map<String, ?> attributes = (Map<String, ?>) request.getAttribute(PortletRequest.USER_INFO);
+        String userId = getUserId(attributes);
 
-  private String getUserId(Map<String, ?> attributes) {
-    String userId = "";
-    if (attributes != null) {
-      userId = (String) attributes.get(PortletRequest.P3PUserInfos.USER_LOGIN_ID.toString());
+        try {
+            List<DeviationCase> devCaseList = deviationService.listDeviationCases(userId);
+            model.addAttribute("devCaseList", devCaseList);
+        } catch (DeviationServiceException e) {
+            returnView = VIEW_ERROR_JSP;
+        }
+
+        return returnView;
     }
-    return userId;
-  }
+
+    private String getUserId(Map<String, ?> attributes) {
+        String userId = "";
+        if (attributes != null) {
+            userId = (String) attributes.get(PortletRequest.P3PUserInfos.USER_LOGIN_ID.toString());
+        }
+        return userId;
+    }
 }
