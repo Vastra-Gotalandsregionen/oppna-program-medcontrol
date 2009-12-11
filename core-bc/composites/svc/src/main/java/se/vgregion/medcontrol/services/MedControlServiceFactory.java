@@ -21,10 +21,13 @@ import se.vgregion.portal.medcontrol.ws.MyCasesService;
 import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
 
 public class MedControlServiceFactory {
-  
-  
-  public static MyCasesServiceSoap getMyCasesServiceSoap() {
-    return new MyCasesService().getMyCasesServiceSoap();
-  }
+
+    protected MedControlServiceFactory() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static MyCasesServiceSoap getMyCasesServiceSoap() {
+        return new MyCasesService().getMyCasesServiceSoap();
+    }
 
 }
