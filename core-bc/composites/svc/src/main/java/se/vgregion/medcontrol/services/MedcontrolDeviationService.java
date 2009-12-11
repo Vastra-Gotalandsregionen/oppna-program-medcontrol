@@ -36,6 +36,7 @@ import se.vgregion.portal.medcontrol.ws.Case;
 import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
 
 /**
+ * DeviationService implementation for MedControl WebService access.
  * 
  * @author David Bennehult
  * @author Anders Bergkvist
@@ -43,6 +44,11 @@ import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
 public class MedcontrolDeviationService implements DeviationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MedcontrolDeviationService.class);
+
+    private static final String CULTURE_LOCALE = "sv-SE";
+    private static final Boolean CHECK_FOR_ACTING_ROLE = Boolean.FALSE;
+    private static final Boolean INCLUDE_ACTING_ROLE_ONLY = Boolean.TRUE;
+
     private MyCasesServiceSoap myCasesServiceSoap;
 
     @Autowired
@@ -79,23 +85,24 @@ public class MedcontrolDeviationService implements DeviationService {
     }
 
     private ArrayOfCase callService(String userId) {
-        ArrayOfCase arrayOfCase = new ArrayOfCase();
+        ArrayOfCase arrayOfCase = null;
 
-        // userId = [lämpligt VGR-id]
-        // checkForActingRole = true (anger om man vill kontrollera om man har en "aktiv" roll, bra, men lite
-        // "dyrt") includeOnlyActingRole = false (anger att man bara vill ha ärenden där man har en aktiv roll)
-        // culture = sv-SE
+        // * userId = [lämpligt VGR-id]
+        // * checkForActingRole = true (anger om man vill kolla om man har en "aktiv" roll, bra, men lite "dyrt")
+        // * includeOnlyActingRole = false (anger att man bara vill ha ärenden där man har en aktiv roll)
+        // * culture = sv-SE
         //
         // För att förtydliga de två booleska parametrarna:
-        // False, false -> Hämtar alla mina ärenden (motsvarar pågående-fliken, värdet för HasActingRole är inte
+        // * False, false -> Hämtar alla mina ärenden (motsvarar pågående-fliken, värdet för HasActingRole är inte
         // satt och säger inget).
-        // False, true -> Hämtar bara ärenden där jag har en aktiv roll (motsvarar todo-fliken).
-        // True, false -> Hämtar alla mina ärenden och anger i vilka jag har en aktiv roll (motsvarar pågående- och
-        // todo-fliken, värdet för HasActingRole anger vilka ärenden som även visas som "todo").
-        // True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.
+        // * False, true -> Hämtar bara ärenden där jag har en aktiv roll (motsvarar todo-fliken).
+        // * True, false -> Hämtar alla mina ärenden och anger i vilka jag har en aktiv roll (motsvarar pågående-
+        // och todo-fliken, värdet för HasActingRole anger vilka ärenden som även visas som "todo").
+        // * True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.
 
         try {
-            arrayOfCase = myCasesServiceSoap.getUserCases(userId, false, true, "sv-SE");
+            arrayOfCase = myCasesServiceSoap.getUserCases(userId, CHECK_FOR_ACTING_ROLE.booleanValue(),
+                    INCLUDE_ACTING_ROLE_ONLY.booleanValue(), CULTURE_LOCALE);
         } catch (WebServiceException e) {
             LOGGER.error("MedControl webservice exception", e);
             throw new DeviationServiceException("Unhandled exception from webservice", e);
@@ -118,5 +125,4 @@ public class MedcontrolDeviationService implements DeviationService {
         }
         return caseDate;
     }
-
 }
