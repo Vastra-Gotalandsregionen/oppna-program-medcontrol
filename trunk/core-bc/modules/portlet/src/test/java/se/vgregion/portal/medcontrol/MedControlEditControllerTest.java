@@ -34,10 +34,10 @@ import org.apache.log4j.WriterAppender;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.portlet.MockPortletPreferences;
-import org.springframework.validation.AbstractBindingResult;
 import org.springframework.validation.BindingResult;
 
 import se.vgregion.portal.medcontrol.domain.MedControlFormBacker;
+import se.vgregion.portal.medcontrol.mocks.MockBindingResult;
 
 public class MedControlEditControllerTest {
 
@@ -56,7 +56,8 @@ public class MedControlEditControllerTest {
     mockPortletPreferences.setValue(MedControlEditController.MEDCONTROL_PREFS_LIST_SIZE, LIST_SIZE.toString());
     medControlFormBacker = new MedControlFormBacker();
     medControlFormBacker.setListItemLimitation(LIST_SIZE);
-    bindingResult = new BindingResultMock("");
+    bindingResult =  new MockBindingResult("");
+   
   }
 
   @Test
@@ -67,7 +68,7 @@ public class MedControlEditControllerTest {
 
   @Test
   public void testShowPreferences() {
-    BindingResult bindingResult = new BindingResultMock("");
+    BindingResult bindingResult = new MockBindingResult("");
     MedControlFormBacker medControlFormBacker = new MedControlFormBacker();
     assertEquals("medcontrol_preferences", medControlEditController
         .showPreferences(medControlFormBacker, bindingResult));
@@ -75,7 +76,7 @@ public class MedControlEditControllerTest {
 
   @Test
   public void testShowPreferencesFailValidation() throws Exception {
-    BindingResult bindingResult = new BindingResultMock("");
+    BindingResult bindingResult = new MockBindingResult("");
     MedControlFormBacker medControlFormBacker = new MedControlFormBacker();
     medControlFormBacker.setListItemLimitation(INVALID_LIST_SIZE);
     medControlEditController.showPreferences(medControlFormBacker, bindingResult);
@@ -100,7 +101,7 @@ public class MedControlEditControllerTest {
   @Test
   public void testSavePreferencesFailValidation() throws ReadOnlyException {
     MedControlFormBacker medControlFormBacker = new MedControlFormBacker();
-    BindingResult bindingResult = new BindingResultMock("");
+    BindingResult bindingResult = new MockBindingResult("");
     Integer expectedListItemLimitation = INVALID_LIST_SIZE;
 
     medControlFormBacker.setListItemLimitation(expectedListItemLimitation);
@@ -146,23 +147,6 @@ public class MedControlEditControllerTest {
     return writer;
   }
 
-  class BindingResultMock extends AbstractBindingResult {
-    private static final long serialVersionUID = -1153989193220655998L;
-
-    protected BindingResultMock(String objectName) {
-      super(objectName);
-    }
-
-    @Override
-    protected Object getActualFieldValue(String field) {
-      return null;
-    }
-
-    @Override
-    public Object getTarget() {
-      return null;
-    }
-  }
 
   class MockPreferencesExceptionGenerator extends MockPortletPreferences {
     boolean throwIOException;

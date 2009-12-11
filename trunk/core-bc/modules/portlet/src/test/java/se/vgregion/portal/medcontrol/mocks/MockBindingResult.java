@@ -15,27 +15,25 @@
  *   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
  *   Boston, MA 02111-1307  USA
  */
-package se.vgregion.portal.medcontrol;
+package se.vgregion.portal.medcontrol.mocks;
 
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+import org.springframework.validation.AbstractBindingResult;
 
-import se.vgregion.portal.medcontrol.domain.MedControlFormBacker;
+public class MockBindingResult extends AbstractBindingResult {
 
-public class MedControlFormBackerValidator implements Validator {
+  public MockBindingResult(String objectName) {
+    super(objectName);
+  }
+
+  private static final long serialVersionUID = 4167037446130913569L;
 
   @Override
-  public boolean supports(Class<?> clazz) {
-    return MedControlFormBacker.class.isAssignableFrom(clazz);
+  protected Object getActualFieldValue(String field) {
+    return null;
   }
 
   @Override
-  public void validate(Object target, Errors errors) {
-    MedControlFormBacker medControlPreferences = (MedControlFormBacker) target;
-    if (medControlPreferences.getListItemLimitation() < 1 || medControlPreferences.getListItemLimitation() > 20) {
-      errors.rejectValue("listItemLimitation", "listItemLimitation.error",
-          "Tillåtna värden är heltal mellan 1 och 20.");
-    }
-
+  public Object getTarget() {
+    return null;
   }
 }
