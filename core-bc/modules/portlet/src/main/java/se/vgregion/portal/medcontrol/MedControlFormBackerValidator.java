@@ -24,6 +24,9 @@ import se.vgregion.portal.medcontrol.domain.MedControlFormBacker;
 
 public class MedControlFormBackerValidator implements Validator {
 
+  private static final int MINIMUM_LIST_SIZE = 1;
+  private static final int MAX_LIST_SIZE = 20;
+
   @Override
   public boolean supports(Class<?> clazz) {
     return MedControlFormBacker.class.isAssignableFrom(clazz);
@@ -32,7 +35,8 @@ public class MedControlFormBackerValidator implements Validator {
   @Override
   public void validate(Object target, Errors errors) {
     MedControlFormBacker medControlPreferences = (MedControlFormBacker) target;
-    if (medControlPreferences.getListItemLimitation() < 1 || medControlPreferences.getListItemLimitation() > 20) {
+    if (medControlPreferences.getListItemLimitation() < MINIMUM_LIST_SIZE
+        || medControlPreferences.getListItemLimitation() > MAX_LIST_SIZE) {
       errors.rejectValue("listItemLimitation", "listItemLimitation.error",
           "Tillåtna värden är heltal mellan 1 och 20.");
     }
