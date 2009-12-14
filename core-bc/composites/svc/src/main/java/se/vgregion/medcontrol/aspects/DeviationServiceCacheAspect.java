@@ -19,7 +19,7 @@ package se.vgregion.medcontrol.aspects;
 
 import javax.annotation.Resource;
 
-import net.sf.ehcache.Cache;
+import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -32,21 +32,25 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Order(2)
 public class DeviationServiceCacheAspect {
-    @Resource(name = "deviationCasesCache")
-    private Cache cache;
+  @Resource(name = "deviationCasesCache")
+  private Ehcache cache;
 
-    @Around("execution(* se.vgregion.medcontrol.services.MedcontrolDeviationService.listDeviationCases(java.lang.String))")
-    public Object cacheDeviationCases(ProceedingJoinPoint joinPoint) throws Throwable {
-        Object[] arguments = joinPoint.getArgs();
-        String location = (String) arguments[0];
-        Element element = cache.get(location);
-        if (null == element) {
-            Object result = joinPoint.proceed();
-            if (null != result) {
-                element = new Element(location, result);
-                cache.put(element);
-            }
-        }
-        return element != null ? element.getValue() : null;
+  public void setCache(Ehcache cache) {
+    this.cache = cache;
+  }
+
+  @Around("execution(* se.vgregion.medcontrol.services.MedcontrolDeviationService.listDeviationCases(java.lang.String))")
+  public Object cacheDeviationCases(ProceedingJoinPoint joinPoint) throws Throwable {
+    Object[] arguments = joinPoint.getArgs();
+    String location = (String) arguments[0];
+    Element element = cache.get(location);
+    if (null == element) {
+      Object result = joinPoint.proceed();
+      if (null != result) {
+        element = new Element(location, result);
+        cache.put(element);
+      }
     }
+    return element != null ? element.getValue() : null;
+  }
 }
