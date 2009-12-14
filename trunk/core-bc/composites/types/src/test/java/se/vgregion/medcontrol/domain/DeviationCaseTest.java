@@ -119,6 +119,7 @@ public class DeviationCaseTest {
         deviationCase.setCaseNumber("1");
         assertFalse(deviationCase.equals(deviationCase2));
         // DeviationCase2 field is with null
+        deviationCase.setCaseNumber(null);
         deviationCase2.setCaseNumber(null);
         assertFalse(deviationCase.equals(deviationCase2));
         // Same case number
