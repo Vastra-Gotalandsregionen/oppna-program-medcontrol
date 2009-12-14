@@ -39,6 +39,12 @@ public class DeviationServiceCacheAspect {
     this.cache = cache;
   }
 
+  /**
+   * 
+   * @param joinPoint Used to get method parameters value(s)
+   * @return Method return value
+   * @throws Throwable If something goes wrong
+   */
   @Around("execution(* se.vgregion.medcontrol.services.MedcontrolDeviationService.listDeviationCases(java.lang.String))")
   public Object cacheDeviationCases(ProceedingJoinPoint joinPoint) throws Throwable {
     Object[] arguments = joinPoint.getArgs();
@@ -51,6 +57,10 @@ public class DeviationServiceCacheAspect {
         cache.put(element);
       }
     }
-    return element != null ? element.getValue() : null;
+    Object returnValue = null;
+    if (element != null) {
+      returnValue = element.getValue();
+    }
+    return returnValue;
   }
 }
