@@ -78,4 +78,32 @@ public class DeviationCaseTest {
     public void testIllegalArgumentException() {
         deviationCase.compareTo(null);
     }
+    
+    @Test
+    public void testHashCode() {
+        int hashCode1 = deviationCase.hashCode();
+        assertEquals(hashCode1, deviationCase.hashCode());
+        deviationCase.setCaseNumber("3");
+        assertFalse(hashCode1 == deviationCase.hashCode());
+    }
+    
+    @Test
+    public void testEquals() {
+        // Same object
+        assertTrue(deviationCase.equals(deviationCase));
+        // Null 
+        assertFalse(deviationCase.equals(null));
+        // Different class
+        assertFalse(deviationCase.equals("string"));
+        // DeviationCase1 field with null
+        DeviationCase deviationCase2 = new DeviationCase();
+        deviationCase2.setCaseNumber("2");
+        assertFalse(deviationCase.equals(deviationCase2));
+        // Different caseNumber
+        deviationCase.setCaseNumber("1");
+        assertFalse(deviationCase.equals(deviationCase2));
+        // Same case number
+        deviationCase2.setCaseNumber("1");
+        assertTrue(deviationCase.equals(deviationCase2));
+    }
 }

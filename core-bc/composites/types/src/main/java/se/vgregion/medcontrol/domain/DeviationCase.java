@@ -103,4 +103,38 @@ public class DeviationCase implements Comparable<DeviationCase> {
             throw new IllegalArgumentException("Cannot compare, at least one of the given case numbers is null");
         }
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result;
+        if (caseNumber != null) {
+            result += caseNumber.hashCode();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        DeviationCase other = (DeviationCase) obj;
+        if (caseNumber == null) {
+            if (other.caseNumber != null) {
+                return false;
+            }
+        } else if (!caseNumber.equals(other.caseNumber)) {
+            return false;
+        }
+        return true;
+    }
+
 }
