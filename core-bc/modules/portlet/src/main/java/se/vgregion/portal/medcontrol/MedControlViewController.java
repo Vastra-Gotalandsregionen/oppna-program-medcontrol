@@ -17,6 +17,8 @@
  */
 package se.vgregion.portal.medcontrol;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +71,11 @@ public class MedControlViewController {
 
         try {
             List<DeviationCase> devCaseList = deviationService.listDeviationCases(userId);
+
+            // Sort descending on caseNumber
+            Comparator<DeviationCase> comparator = Collections.reverseOrder();
+            Collections.sort(devCaseList, comparator);
+
             model.addAttribute("devCaseList", devCaseList);
         } catch (DeviationServiceException e) {
             returnView = VIEW_ERROR_JSP;

@@ -59,6 +59,7 @@ public class MedcontrolDeviationService implements DeviationService {
     /**
      * 
      * {@inheritDoc}
+     * 
      */
     @Override
     public List<DeviationCase> listDeviationCases(String userId) {
@@ -81,6 +82,7 @@ public class MedcontrolDeviationService implements DeviationService {
                 deviationCases.add(deviationCase);
             }
         }
+
         return deviationCases;
     }
 

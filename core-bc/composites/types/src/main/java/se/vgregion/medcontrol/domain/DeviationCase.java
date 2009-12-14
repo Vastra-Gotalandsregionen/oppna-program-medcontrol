@@ -25,7 +25,7 @@ import java.util.Date;
  * @author David Bennehult
  * @author Anders Bergkvist
  */
-public class DeviationCase {
+public class DeviationCase implements Comparable<DeviationCase> {
 
     private String caseNumber;
     private String description;
@@ -92,4 +92,15 @@ public class DeviationCase {
         }
     }
 
+    public int compare(DeviationCase dc1, DeviationCase dc2) {
+        return dc1.compareTo(dc2);
+    }
+
+    public int compareTo(DeviationCase dc2) {
+        if (getCaseNumber() != null && dc2.getCaseNumber() != null) {
+            return getCaseNumber().compareTo(dc2.getCaseNumber());
+        } else {
+            throw new IllegalArgumentException("Cannot compare, at least one of the given case numbers is null");
+        }
+    }
 }

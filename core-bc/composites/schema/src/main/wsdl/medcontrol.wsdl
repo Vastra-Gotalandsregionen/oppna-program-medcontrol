@@ -81,10 +81,10 @@
   <wsdl:service name="MyCasesService">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no built in security and should not be available for users.</wsdl:documentation>
     <wsdl:port name="MyCasesServiceSoap" binding="tns:MyCasesServiceSoap">
-      <soap:address location="http://ws_provider_domain.com/MyCasesService/MyCasesService.asmx" />
+      <soap:address location="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx" />
     </wsdl:port>
     <wsdl:port name="MyCasesServiceSoap12" binding="tns:MyCasesServiceSoap12">
-      <soap12:address location="http://ws_provider_domain.com/MyCasesService/MyCasesService.asmx" />
+      <soap12:address location="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
