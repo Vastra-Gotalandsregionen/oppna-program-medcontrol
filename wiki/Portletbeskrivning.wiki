@@ -6,4 +6,4 @@ MedControl portlet använder sig av [http://springsource.org Spring MVC Portlet]
 == Webservice ==
 Portleten använder sig av SOAP webservice mot MedControl systemet för att hämta ut ärendelista för inloggad person i portalen som använder sig av MedControl portleten.
 == Cache hantering ==
-För att göra MedControl portleten mindre resurskrävande så används cachning av data. Detta är implementerat med hjälp av Ehcache (http://ehcache.org/) och Spring annotation (http://springsource.org).
+För att göra MedControl portleten mindre resurskrävande så används cachning av data. Detta är implementerat med hjälp av [http://ehcache.org Ehcache] och [http://springsource.org Spring annotation].
