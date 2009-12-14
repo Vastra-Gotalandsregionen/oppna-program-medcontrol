@@ -15,13 +15,13 @@
       Free Software Foundation, Inc., 59 Temple Place, Suite 330,
       Boston, MA 02111-1307  USA
 -->
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nonamespaceschemalocation="ehcache.xsd">
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nonamespaceschemalocation="http://ehcache.org/ehcache.xsd">
 
-  <defaultcache maxelementsinmemory="10000" eternal="false" timetoidleseconds="120" timetoliveseconds="120"
-    memorystoreevictionpolicy="LRU" />
+  <defaultCache maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
+    memoryStoreEvictionPolicy="LRU" />
   
   <!-- Cache to hold deviation case objects -->
-  <cache name="deviationCache" maxelementsinmemory="500" eternal="false" overflowtodisk="false" timetoidleseconds="30" 
-    timetoliveseconds="60" memorystoreevictionpolicy="LRU" />
+  <cache name="deviationCache" maxElementsInMemory="500" eternal="false" overflowToDisk="false" timeToIdleSeconds="30" 
+    timeToLiveSeconds="60" memoryStoreEvictionPolicy="LRU" />
 
 </ehcache>
