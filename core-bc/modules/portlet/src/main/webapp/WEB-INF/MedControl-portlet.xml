@@ -26,12 +26,14 @@
   <!-- Enables annotations -->
   <context:annotation-config />
 
+  <!-- 
   <bean id="deviationService" class="se.vgregion.medcontrol.services.MedcontrolDeviationService">
     <property name="myCasesServiceSoap" ref="medControlServiceFactory" />
   </bean>
-
+   -->
+  <!--
   <bean id="medControlServiceFactory" class="se.vgregion.medcontrol.services.MedControlServiceFactory" factory-method="getMyCasesServiceSoap" />
-  
+  -->
   <bean id="medControlFormBackerValidator" class="se.vgregion.portal.medcontrol.MedControlFormBackerValidator"/>
 
 </beans>
