@@ -92,6 +92,10 @@ public class DeviationCase implements Comparable<DeviationCase> {
         }
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     public int compareTo(DeviationCase dc2) {
         if (getCaseNumber() != null && dc2.getCaseNumber() != null) {
             return getCaseNumber().compareTo(dc2.getCaseNumber());
