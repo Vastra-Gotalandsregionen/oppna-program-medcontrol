@@ -1,9 +1,9 @@
-= '*'MedControl'*' portlet =
+= Medcontrol portlet =
 == Beskrivning ==
-MedControl är ett ärende och avvikelsehantering system, utvecklat av Munkeby Systems. Denna portlet används för att skapa en aviserings funktionalitet för inkomna ärenden.
+Medcontrol är ett ärende och avvikelsehantering system, utvecklat av Munkeby Systems. Denna portlet används för att skapa en aviserings funktionalitet för inkomna ärenden.
 == Portlet ramverk ==
-MedControl portlet använder sig av [http://springsource.org Spring MVC Portlet].
+Medcontrol portlet använder sig av [http://springsource.org Spring MVC Portlet].
 == Webservice ==
-Portleten använder sig av SOAP webservice mot MedControl systemet för att hämta ut ärendelista för inloggad person i portalen som använder sig av MedControl portleten.
+Portleten använder sig av SOAP webservice mot Medcontrol systemet för att hämta ut ärendelista för inloggad person i portalen som använder sig av Medcontrol portleten.
 == Cache hantering ==
-För att göra MedControl portleten mindre resurskrävande så används cachning av data. Detta är implementerat med hjälp av [http://ehcache.org Ehcache] och [http://springsource.org Spring annotation].
+För att göra Medcontrol portleten mindre resurskrävande så används cachning av data. Detta är implementerat med hjälp av [http://ehcache.org Ehcache] och [http://springsource.org Spring annotation].
