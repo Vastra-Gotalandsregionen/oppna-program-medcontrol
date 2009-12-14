@@ -64,7 +64,7 @@ public class DeviationCaseTest {
         PojoTester.testProperty(deviationCase, "registeredDate", Date.class, cal2.getTime(), null, cal1.getTime());
         PojoTester.testProperty(deviationCase, "url", String.class, null, "Test", "Test2");
     }
-    
+
     @Test
     public void testCompareTo() {
         DeviationCase case1 = new DeviationCase();
@@ -73,12 +73,28 @@ public class DeviationCaseTest {
         case2.setCaseNumber("av-0010");
         assertEquals(-1, case1.compareTo(case2));
     }
-    
-    @Test(expected = IllegalArgumentException.class)
+
+    @Test
     public void testIllegalArgumentException() {
-        deviationCase.compareTo(null);
+        // Test deviation case number is null
+        try {
+            deviationCase.compareTo(null);
+            fail("Should throw IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Cannot compare, at least one of the given case numbers is null", e.getMessage());
+        }
+        // Test compare object case number is null
+        try {
+            DeviationCase deviationCase2 = new DeviationCase();
+            deviationCase.setCaseNumber("1");
+            deviationCase.compareTo(deviationCase2);
+            fail("Should throw IllegalArgumentException");
+        } catch (Exception e) {
+            assertEquals("Cannot compare, at least one of the given case numbers is null", e.getMessage());
+        }
+
     }
-    
+
     @Test
     public void testHashCode() {
         int hashCode1 = deviationCase.hashCode();
@@ -86,12 +102,12 @@ public class DeviationCaseTest {
         deviationCase.setCaseNumber("3");
         assertFalse(hashCode1 == deviationCase.hashCode());
     }
-    
+
     @Test
     public void testEquals() {
         // Same object
         assertTrue(deviationCase.equals(deviationCase));
-        // Null 
+        // Null
         assertFalse(deviationCase.equals(null));
         // Different class
         assertFalse(deviationCase.equals("string"));
@@ -101,6 +117,9 @@ public class DeviationCaseTest {
         assertFalse(deviationCase.equals(deviationCase2));
         // Different caseNumber
         deviationCase.setCaseNumber("1");
+        assertFalse(deviationCase.equals(deviationCase2));
+        // DeviationCase2 field is with null
+        deviationCase2.setCaseNumber(null);
         assertFalse(deviationCase.equals(deviationCase2));
         // Same case number
         deviationCase2.setCaseNumber("1");
