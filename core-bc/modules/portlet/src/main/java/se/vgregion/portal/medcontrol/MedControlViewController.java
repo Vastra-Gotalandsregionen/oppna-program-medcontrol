@@ -63,7 +63,8 @@ public class MedControlViewController {
      * @return view (jsp) to be rendered
      */
     @RenderMapping
-    public String showMedControlNotifications(ModelMap model, RenderRequest request, PortletPreferences preferences) {
+    public String showMedControlNotifications(ModelMap model,
+            RenderRequest request, PortletPreferences preferences) {
         String returnView = VIEW_JSP;
         @SuppressWarnings("unchecked")
         Map<String, ?> attributes = (Map<String, ?>) request.getAttribute(PortletRequest.USER_INFO);
