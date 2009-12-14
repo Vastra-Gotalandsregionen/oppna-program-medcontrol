@@ -121,9 +121,10 @@ public class DeviationCaseTest {
         // DeviationCase2 field is with null
         deviationCase.setCaseNumber(null);
         deviationCase2.setCaseNumber(null);
-        assertFalse(deviationCase.equals(deviationCase2));
+        assertTrue(deviationCase.equals(deviationCase2));
         // Same case number
         deviationCase2.setCaseNumber("1");
+        deviationCase.setCaseNumber("1");
         assertTrue(deviationCase.equals(deviationCase2));
     }
 }
