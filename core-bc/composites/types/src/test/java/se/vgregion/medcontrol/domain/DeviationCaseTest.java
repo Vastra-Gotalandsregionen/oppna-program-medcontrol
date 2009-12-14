@@ -64,4 +64,18 @@ public class DeviationCaseTest {
         PojoTester.testProperty(deviationCase, "registeredDate", Date.class, cal2.getTime(), null, cal1.getTime());
         PojoTester.testProperty(deviationCase, "url", String.class, null, "Test", "Test2");
     }
+    
+    @Test
+    public void testCompareTo() {
+        DeviationCase case1 = new DeviationCase();
+        case1.setCaseNumber("av-0001");
+        DeviationCase case2 = new DeviationCase();
+        case2.setCaseNumber("av-0010");
+        assertEquals(-1, case1.compareTo(case2));
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testIllegalArgumentException() {
+        deviationCase.compareTo(null);
+    }
 }
