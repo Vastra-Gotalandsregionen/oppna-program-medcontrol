@@ -3,8 +3,7 @@
     This is the Service-composite Maven POM. Template version: 1.2-SNAPSHOT Generation time : 2009-12-09 10:55:56
     CET
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>medcontrol.medcontrol</groupId>
@@ -54,13 +53,15 @@
               <goal>wsimport</goal>
             </goals>
             <configuration>
+<!--              <wsdlLocation>http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?wsdl</wsdlLocation>-->
               <wsdlUrls>
                 <wsdlUrl>${medControlServiceWsdlUrl}</wsdlUrl>
               </wsdlUrls>
               <!-- Use this to build project with default wsdl file, if there is no available wsdl url.-->
-              <!--              <wsdlDirectory>-->
-              <!--                ${basedir}/src/main/resources/wsdl-->
-              <!--             </wsdlDirectory>-->
+<!--              <wsdlDirectory>${basedir}/../schema/src/main/wsdl</wsdlDirectory>-->
+<!--              <wsdlFiles>-->
+<!--                <wsdlFile>medcontrol.wsdl</wsdlFile>-->
+<!--              </wsdlFiles>-->
               <packageName>se.vgregion.portal.medcontrol.ws</packageName>
               <extension>true</extension>
               <sourceDestDir>${project.build.directory}/generated-sources/jaxws</sourceDestDir>
@@ -116,7 +117,7 @@
       <artifactId>aspectjweaver</artifactId>
       <version>1.6.6</version>
     </dependency>
-    
+
     <dependency>
       <groupId>javax.annotation</groupId>
       <artifactId>jsr250-api</artifactId>
