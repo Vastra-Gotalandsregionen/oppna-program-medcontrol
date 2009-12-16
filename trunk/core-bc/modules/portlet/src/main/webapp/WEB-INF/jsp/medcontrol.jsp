@@ -33,8 +33,7 @@
 <ul class="list emails">
   <c:forEach items="${devCaseList}" var="case">
     <li class="unread"><a target="_blank" href="${case.url}">ID=${case.caseNumber}</a>
-      <br/>
-      ${case.description}
+      <span>${case.description}</span>
     </li>
   </c:forEach>
 </ul>
