@@ -32,7 +32,10 @@
 <div class="module-content accordion">
 <ul class="list emails">
   <c:forEach items="${devCaseList}" var="case">
-    <li class="unread"><a target="_blank" href="${case.url}?id=${case.caseNumber}">ID=${case.caseNumber}<span>  ${case.description}</span></a></li>
+    <li class="unread"><a target="_blank" href="${case.url}">ID=${case.caseNumber}</a>
+      <br/>
+      ${case.description}
+    </li>
   </c:forEach>
 </ul>
 </div>
