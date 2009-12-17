@@ -21,10 +21,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-import javax.portlet.PortletPreferences;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,6 +47,13 @@ public class MedControlViewController {
     private static final String VIEW_ERROR_JSP = "fatal_error";
 
     @Autowired
+    private PortletConfig portletConfig;
+
+    public void setPortletConfig(PortletConfig portletConfig) {
+        this.portletConfig = portletConfig;
+    }
+
+    @Autowired
     private DeviationService deviationService = null;
 
     public void setDeviationService(DeviationService deviationService) {
@@ -58,13 +67,12 @@ public class MedControlViewController {
      *            A Spring MVC ModelMap
      * @param request
      *            RenderRequest
-     * @param preferences
-     *            PortletPreferences for current portlet
+     * @param response
+     *            RenderResponse
      * @return view (jsp) to be rendered
      */
     @RenderMapping
-    public String showMedControlNotifications(ModelMap model,
-            RenderRequest request, PortletPreferences preferences) {
+    public String showMedControlNotifications(ModelMap model, RenderRequest request, RenderResponse response) {
         String returnView = VIEW_JSP;
         @SuppressWarnings("unchecked")
         Map<String, ?> attributes = (Map<String, ?>) request.getAttribute(PortletRequest.USER_INFO);
@@ -78,6 +86,11 @@ public class MedControlViewController {
             Collections.sort(devCaseList, comparator);
 
             model.addAttribute("devCaseList", devCaseList);
+
+            ResourceBundle bundle = portletConfig.getResourceBundle(response.getLocale());
+            if (bundle != null) {
+                response.setTitle(bundle.getString("javax.portlet.title") + " (" + devCaseList.size() + ")");
+            }
         } catch (DeviationServiceException e) {
             returnView = VIEW_ERROR_JSP;
         }
