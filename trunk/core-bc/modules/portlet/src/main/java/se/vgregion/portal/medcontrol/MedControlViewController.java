@@ -47,7 +47,7 @@ public class MedControlViewController {
     private static final String VIEW_ERROR_JSP = "fatal_error";
 
     @Autowired
-    private PortletConfig portletConfig;
+    private PortletConfig portletConfig = null;
 
     public void setPortletConfig(PortletConfig portletConfig) {
         this.portletConfig = portletConfig;
