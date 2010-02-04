@@ -53,15 +53,10 @@
               <goal>wsimport</goal>
             </goals>
             <configuration>
-<!--              <wsdlLocation>http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?wsdl</wsdlLocation>-->
-              <wsdlUrls>
-                <wsdlUrl>${medControlServiceWsdlUrl}</wsdlUrl>
-              </wsdlUrls>
-              <!-- Use this to build project with default wsdl file, if there is no available wsdl url.-->
-<!--              <wsdlDirectory>${basedir}/../schema/src/main/wsdl</wsdlDirectory>-->
-<!--              <wsdlFiles>-->
-<!--                <wsdlFile>medcontrol.wsdl</wsdlFile>-->
-<!--              </wsdlFiles>-->
+              <wsdlDirectory>${basedir}/../schema/src/main/wsdl</wsdlDirectory>
+              <wsdlFiles>
+                <wsdlFile>medcontrol.wsdl</wsdlFile>
+              </wsdlFiles>
               <packageName>se.vgregion.portal.medcontrol.ws</packageName>
               <extension>true</extension>
               <sourceDestDir>${project.build.directory}/generated-sources/jaxws</sourceDestDir>
