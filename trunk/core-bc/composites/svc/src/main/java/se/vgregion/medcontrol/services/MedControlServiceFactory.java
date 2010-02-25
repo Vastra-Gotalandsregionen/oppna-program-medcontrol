@@ -22,6 +22,11 @@ package se.vgregion.medcontrol.services;
 import se.vgregion.portal.medcontrol.ws.MyCasesService;
 import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
 
+import javax.xml.namespace.QName;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class MedControlServiceFactory {
 
     protected MedControlServiceFactory() {
@@ -29,7 +34,19 @@ public class MedControlServiceFactory {
     }
 
     public static MyCasesServiceSoap getMyCasesServiceSoap() {
-        return new MyCasesService().getMyCasesServiceSoap();
+        URL wsdlUrl = null;
+        QName qName = new QName("http://mycasesservice.munkeby.com/", "MyCasesService");
+
+        MyCasesService myCasesService = null;
+        try {
+            wsdlUrl = new URL("file:../webapps/medcontrol-core-bc-module-portlet/WEB-INF/classes/wsdl/medcontrol.wsdl");
+            myCasesService = new MyCasesService(wsdlUrl, qName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            myCasesService = new MyCasesService();
+        }
+//        return new MyCasesService().getMyCasesServiceSoap();
+        return myCasesService.getMyCasesServiceSoap();
     }
 
 }
