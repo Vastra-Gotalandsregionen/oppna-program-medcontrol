@@ -30,8 +30,13 @@
   
   <!-- Enable @AspectJ Support -->
   <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+  
+  <bean id="deviationServiceCacheAspect" class="se.vgregion.medcontrol.aspects.DeviationServiceCacheAspect" />
+  
+  <!-- 
   <context:component-scan base-package="se.vgregion.medcontrol.aspects"></context:component-scan>
-
+   -->
+ 
   <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
     <property name="configLocation" value="classpath:ehcache.xml"/>
   </bean>
