@@ -93,6 +93,13 @@
       <artifactId>spring-aop</artifactId>
       <version>${spring.fw.version}</version>
     </dependency>
+    
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.fw.version}</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>javax.xml.bind</groupId>
@@ -111,7 +118,6 @@
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
       <version>1.6.8</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
