@@ -19,22 +19,23 @@
 
 package se.vgregion.medcontrol.services;
 
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.ws.WebServiceException;
+import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import se.vgregion.medcontrol.domain.DeviationCase;
 import se.vgregion.portal.medcontrol.ws.ArrayOfCase;
 import se.vgregion.portal.medcontrol.ws.Case;
+import se.vgregion.portal.medcontrol.ws.MyCasesService;
 import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
 
 /**
@@ -53,9 +54,14 @@ public class MedcontrolDeviationService implements DeviationService {
 
     private MyCasesServiceSoap myCasesServiceSoap;
 
-    @Autowired
-    public void setMyCasesServiceSoap(MyCasesServiceSoap myCasesServiceSoap) {
-        this.myCasesServiceSoap = myCasesServiceSoap;
+    private String webServiceWsdlUrl = "http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?WSDL";
+
+    /**
+     * @param webServiceWsdlUrl
+     *            the webServiceWsdlUrl to set
+     */
+    public void setWebServiceWsdlUrl(String webServiceWsdlUrl) {
+        this.webServiceWsdlUrl = webServiceWsdlUrl;
     }
 
     /**
@@ -105,11 +111,26 @@ public class MedcontrolDeviationService implements DeviationService {
         // * True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.
 
         try {
+            // Check if we have access to the WebService
+            if (myCasesServiceSoap == null) {
+                // No, try to access it again in case it was temporarily down
+                myCasesServiceSoap = getMyCasesServiceSoap();
+                if (myCasesServiceSoap == null) {
+                    // Still null...nothing we can do...
+                    throw new DeviationServiceException(
+                            "Cannot get user cases, WebService seems to be unavailable.");
+                }
+            }
+
+            // Get user cases
             arrayOfCase = myCasesServiceSoap.getUserCases(userId, CHECK_FOR_ACTING_ROLE.booleanValue(),
                     INCLUDE_ACTING_ROLE_ONLY.booleanValue(), CULTURE_LOCALE);
-        } catch (WebServiceException e) {
-            LOGGER.error("MedControl webservice exception", e);
-            throw new DeviationServiceException("Unhandled exception from webservice", e);
+
+        } catch (Exception e) {
+            // We got an exception, reset so we try to reinit it again the next time
+            myCasesServiceSoap = null;
+            LOGGER.error("Exception when trying to fetch user cases from Webservice.", e);
+            throw new DeviationServiceException("Exception when trying to fetch user cases from Webservice.", e);
         }
 
         return arrayOfCase;
@@ -128,5 +149,27 @@ public class MedcontrolDeviationService implements DeviationService {
             }
         }
         return caseDate;
+    }
+
+    private MyCasesServiceSoap getMyCasesServiceSoap() {
+        URL wsdlUrl = null;
+        QName qName = new QName("http://mycasesservice.munkeby.com/", "MyCasesService");
+
+        MyCasesServiceSoap myCasesServiceSoap = null;
+        try {
+            MyCasesService myCasesService = null;
+            try {
+                wsdlUrl = new URL(webServiceWsdlUrl);
+                myCasesService = new MyCasesService(wsdlUrl, qName);
+            } catch (Exception e) {
+                LOGGER.error("Exception trying to create URL", e);
+                myCasesService = new MyCasesService();
+            }
+            myCasesServiceSoap = myCasesService.getMyCasesServiceSoap();
+        } catch (Exception e) {
+            LOGGER.error("Exception trying to lookup MyCasesServiceSoap", e);
+        }
+
+        return myCasesServiceSoap;
     }
 }

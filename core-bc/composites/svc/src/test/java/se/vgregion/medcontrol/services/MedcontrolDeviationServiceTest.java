@@ -33,6 +33,7 @@ import org.apache.log4j.SimpleLayout;
 import org.apache.log4j.WriterAppender;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import se.vgregion.medcontrol.domain.DeviationCase;
 import se.vgregion.portal.medcontrol.ws.Case;
@@ -48,7 +49,7 @@ public class MedcontrolDeviationServiceTest {
     public void setUp() throws Exception {
         medcontrolDeviationService = new MedcontrolDeviationService();
         mockMyCasesServiceSoap = new MockMyCasesServiceSoap();
-        medcontrolDeviationService.setMyCasesServiceSoap(mockMyCasesServiceSoap);
+        ReflectionTestUtils.setField(medcontrolDeviationService, "myCasesServiceSoap", mockMyCasesServiceSoap);
         generateCaseList();
     }
 

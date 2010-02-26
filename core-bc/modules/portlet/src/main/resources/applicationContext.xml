@@ -30,16 +30,12 @@
                       http://www.springframework.org/schema/aop
                       http://www.springframework.org/schema/aop/spring-aop.xsd"
 >
-
-  <!-- context:component-scan base-package="se.vgregion.medcontrol.services" / -->
   
   <!-- Enable @AspectJ Support -->
   <aop:aspectj-autoproxy/>
   
   <bean id="deviationServiceCacheAspect" class="se.vgregion.medcontrol.aspects.DeviationServiceCacheAspect" />
   
-  <!-- context:component-scan base-package="se.vgregion.medcontrol.aspects"></context:component-scan -->
-
   <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
     <property name="configLocation" value="classpath:ehcache.xml"/>
   </bean>
@@ -50,9 +46,6 @@
   </bean>
 
   <bean id="deviationService" class="se.vgregion.medcontrol.services.MedcontrolDeviationService">
-    <property name="myCasesServiceSoap" ref="medControlServiceFactory" />
+    <property name="webServiceWsdlUrl" value="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?WSDL"/>
   </bean>
-  
-  <bean id="medControlServiceFactory" class="se.vgregion.medcontrol.services.MedControlServiceFactory" factory-method="getMyCasesServiceSoap" />
-  
 </beans>

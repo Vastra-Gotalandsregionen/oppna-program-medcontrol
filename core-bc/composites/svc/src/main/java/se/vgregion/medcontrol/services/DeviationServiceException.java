@@ -21,20 +21,32 @@ package se.vgregion.medcontrol.services;
 
 /**
  * Exception class to show runtime exceptions from DeviationService.
+ * 
  * @author David Bennehult
  * @author Anders Bergkvist
  */
 public class DeviationServiceException extends RuntimeException {
 
-  private static final long serialVersionUID = 5737322772912614407L;
+    private static final long serialVersionUID = 5737322772912614407L;
 
-  /**
-   * 
-   * @param message String message, explaining the error.
-   * @param e The error object
-   */
-  public DeviationServiceException(String message, Throwable e) {
-    super(message, e);
-  }
+    /**
+     * 
+     * @param message
+     *            String message, explaining the error.
+     */
+    public DeviationServiceException(String message) {
+        super(message);
+    }
+
+    /**
+     * 
+     * @param message
+     *            String message, explaining the error.
+     * @param e
+     *            The error object
+     */
+    public DeviationServiceException(String message, Throwable e) {
+        super(message, e);
+    }
 
 }
