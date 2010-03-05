@@ -1,6 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://mycasesservice.munkeby.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://mycasesservice.munkeby.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no built in security and should not be available for users.</wsdl:documentation>
+<?xml version="1.0" encoding="utf-8" ?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:tns="http://mycasesservice.munkeby.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://mycasesservice.munkeby.com/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no
+    built in security and should not be available for users.</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://mycasesservice.munkeby.com/">
       <s:element name="GetUserCases">
@@ -49,7 +54,13 @@
   </wsdl:message>
   <wsdl:portType name="MyCasesServiceSoap">
     <wsdl:operation name="GetUserCases">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the users current cases. If includeOnlyActingRole is set only cases where the users role is currently acting is included. Otherwise checkForActingRole can be set to mark cases where the user has an acting role.</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the users current cases. If includeOnlyActingRole
+        is set only cases where the users role is currently acting is included. Otherwise checkForActingRole can be
+        set to mark cases where the user has an acting role.How to use the booleans: False, false -> Get all the
+        users ongoing cases (ongoing tab, the value for HasActingRole is undefined). False, true -> Get only cases
+        where the user has an acting role (todo page). True, false -> Get all the users ongoing cases (ongoing and
+        todo pages, the value for HasActingRole is true for cases where the user has an acting role). True, true -
+        Meningslös kombination, funkar säkert men svaret är lite odefinierat.</wsdl:documentation>
       <wsdl:input message="tns:GetUserCasesSoapIn" />
       <wsdl:output message="tns:GetUserCasesSoapOut" />
     </wsdl:operation>
@@ -79,12 +90,13 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="MyCasesService">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no built in security and should not be available for users.</wsdl:documentation>
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no
+      built in security and should not be available for users.</wsdl:documentation>
     <wsdl:port name="MyCasesServiceSoap" binding="tns:MyCasesServiceSoap">
-      <soap:address location="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx" />
+      <soap:address location="http://medcontrol.vgregion.se/MyCases/MyCasesService.asmx" />
     </wsdl:port>
     <wsdl:port name="MyCasesServiceSoap12" binding="tns:MyCasesServiceSoap12">
-      <soap12:address location="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx" />
+      <soap12:address location="http://medcontrol.vgregion.se/MyCases/MyCasesService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
