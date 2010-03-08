@@ -125,7 +125,5 @@ public class DeviationServiceCacheAspectTest {
     public String toShortString() {
       return null;
     }
-
   }
-
 }
