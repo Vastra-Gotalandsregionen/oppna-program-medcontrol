@@ -30,6 +30,7 @@ public class DeviationServiceException extends RuntimeException {
     private static final long serialVersionUID = 5737322772912614407L;
 
     /**
+     * Constructor that accepts the exception message string.
      * 
      * @param message
      *            String message, explaining the error.
@@ -39,6 +40,7 @@ public class DeviationServiceException extends RuntimeException {
     }
 
     /**
+     * Constructor that accepts the exception message string and the exception object.
      * 
      * @param message
      *            String message, explaining the error.

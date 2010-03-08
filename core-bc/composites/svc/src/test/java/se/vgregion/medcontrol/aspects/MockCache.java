@@ -343,7 +343,4 @@ public class MockCache implements Ehcache {
   @Override
   public void unregisterCacheLoader(CacheLoader cacheLoader) {
   }
-  
-  
-
 }

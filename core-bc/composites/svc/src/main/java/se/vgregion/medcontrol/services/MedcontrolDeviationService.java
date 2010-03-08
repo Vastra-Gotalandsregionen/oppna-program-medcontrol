@@ -45,29 +45,25 @@ import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
  * @author Anders Bergkvist
  */
 public class MedcontrolDeviationService implements DeviationService {
-
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(MedcontrolDeviationService.class);
-
     private static final String CULTURE_LOCALE = "sv-SE";
     private static final Boolean CHECK_FOR_ACTING_ROLE = Boolean.FALSE;
     private static final Boolean INCLUDE_ACTING_ROLE_ONLY = Boolean.TRUE;
-
     private MyCasesServiceSoap myCasesServiceSoap;
-
     private String webServiceWsdlUrl = "http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?WSDL";
 
     /**
-     * @param webServiceWsdlUrl
-     *            the webServiceWsdlUrl to set
+     * Constructor that accepts the webservice wsdl URL.
+     * 
+     * @param webServiceWsdlUrl the webServiceWsdlUrl to set
      */
     public void setWebServiceWsdlUrl(String webServiceWsdlUrl) {
         this.webServiceWsdlUrl = webServiceWsdlUrl;
     }
 
     /**
-     * 
      * {@inheritDoc}
-     * 
      */
     @Override
     public List<DeviationCase> listDeviationCases(String userId) {
@@ -90,7 +86,6 @@ public class MedcontrolDeviationService implements DeviationService {
                 deviationCases.add(deviationCase);
             }
         }
-
         return deviationCases;
     }
 
@@ -123,8 +118,9 @@ public class MedcontrolDeviationService implements DeviationService {
             }
 
             // Get user cases
-            arrayOfCase = myCasesServiceSoap.getUserCases(userId, CHECK_FOR_ACTING_ROLE.booleanValue(),
-                    INCLUDE_ACTING_ROLE_ONLY.booleanValue(), CULTURE_LOCALE);
+            arrayOfCase =
+                    myCasesServiceSoap.getUserCases(userId, CHECK_FOR_ACTING_ROLE.booleanValue(),
+                            INCLUDE_ACTING_ROLE_ONLY.booleanValue(), CULTURE_LOCALE);
 
         } catch (Exception e) {
             // We got an exception, reset so we try to reinit it again the next time
@@ -132,12 +128,10 @@ public class MedcontrolDeviationService implements DeviationService {
             LOGGER.error("Exception when trying to fetch user cases from Webservice.", e);
             throw new DeviationServiceException("Exception when trying to fetch user cases from Webservice.", e);
         }
-
         return arrayOfCase;
     }
 
     private Date parseDate(String date) {
-
         Date caseDate = null;
         if (date != null) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -169,7 +163,6 @@ public class MedcontrolDeviationService implements DeviationService {
         } catch (Exception e) {
             LOGGER.error("Exception trying to lookup MyCasesServiceSoap", e);
         }
-
         return myCasesServiceSoap;
     }
 }
