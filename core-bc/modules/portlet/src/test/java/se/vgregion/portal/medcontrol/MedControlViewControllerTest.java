@@ -92,7 +92,6 @@ public class MedControlViewControllerTest {
 
     @Test
     public void testFatalErrorView() {
-
         // PortletPreferences
         ModelMap model = new ModelMap();
 
@@ -106,7 +105,6 @@ public class MedControlViewControllerTest {
     }
 
     class DeviationServiceMock implements DeviationService {
-
         boolean throwException;
 
         @Override
@@ -120,17 +118,10 @@ public class MedControlViewControllerTest {
     }
 
     class ResourceBundleMock extends ListResourceBundle {
-
-        private Object[][] contents = new Object[][] {
-
-        { JAVAX_PORTLET_TITLE_KEY, TITLE_VALUE } };
+        private Object[][] contents = new Object[][] {{JAVAX_PORTLET_TITLE_KEY, TITLE_VALUE}};
 
         protected Object[][] getContents() {
-
             return contents;
-
         }
-
     }
-
 }
