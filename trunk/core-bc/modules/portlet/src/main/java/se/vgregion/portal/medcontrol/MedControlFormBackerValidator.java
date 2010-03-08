@@ -42,6 +42,5 @@ public class MedControlFormBackerValidator implements Validator {
       errors.rejectValue("listItemLimitation", "listItemLimitation.error",
           "Tillåtna värden är heltal mellan 1 och 20.");
     }
-
   }
 }

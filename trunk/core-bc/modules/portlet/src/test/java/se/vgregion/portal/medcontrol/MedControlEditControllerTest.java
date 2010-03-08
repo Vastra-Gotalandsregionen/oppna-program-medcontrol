@@ -59,7 +59,6 @@ public class MedControlEditControllerTest {
     medControlFormBacker = new MedControlFormBacker();
     medControlFormBacker.setListItemLimitation(LIST_SIZE);
     bindingResult =  new MockBindingResult("");
-   
   }
 
   @Test
@@ -91,7 +90,6 @@ public class MedControlEditControllerTest {
     Integer expectedListItemLimitation = 3;
 
     medControlFormBacker.setListItemLimitation(expectedListItemLimitation);
-
     medControlEditController.savePreferences(medControlFormBacker, bindingResult, mockPortletPreferences);
 
     String listItemLimitationResult = mockPortletPreferences.getValue(
@@ -107,7 +105,6 @@ public class MedControlEditControllerTest {
     Integer expectedListItemLimitation = INVALID_LIST_SIZE;
 
     medControlFormBacker.setListItemLimitation(expectedListItemLimitation);
-
     medControlEditController.savePreferences(medControlFormBacker, bindingResult, mockPortletPreferences);
 
     String listItemLimitationResult = mockPortletPreferences.getValue(
@@ -148,7 +145,6 @@ public class MedControlEditControllerTest {
 
     return writer;
   }
-
 
   class MockPreferencesExceptionGenerator extends MockPortletPreferences {
     boolean throwIOException;

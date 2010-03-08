@@ -95,7 +95,6 @@ public class DeviationCase implements Comparable<DeviationCase> {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     public int compareTo(DeviationCase dc2) {
@@ -106,6 +105,9 @@ public class DeviationCase implements Comparable<DeviationCase> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -117,6 +119,9 @@ public class DeviationCase implements Comparable<DeviationCase> {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -138,5 +143,4 @@ public class DeviationCase implements Comparable<DeviationCase> {
         }
         return true;
     }
-
 }

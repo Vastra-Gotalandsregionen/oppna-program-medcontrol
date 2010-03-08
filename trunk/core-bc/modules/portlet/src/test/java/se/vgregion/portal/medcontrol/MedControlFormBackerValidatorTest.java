@@ -70,5 +70,4 @@ public class MedControlFormBackerValidatorTest {
     assertEquals("Tillåtna värden är heltal mellan 1 och 20.", defaultMessage);
     assertTrue(mockBindingResult.hasErrors());
   }
-
 }
