@@ -102,8 +102,9 @@ public class MedcontrolDeviationService implements DeviationService {
         // värdet för HasActingRole är inte satt och säger inget).
         // * False, true -> Hämtar bara ärenden där jag har en aktiv roll (motsvarar todo-fliken).
         // * True, false -> Hämtar alla mina ärenden och anger i vilka jag har en aktiv roll (motsvarar
-        // pågående- och todo-fliken, värdet för HasActingRole anger vilka ärenden som även visas som "todo").
-        // * True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.
+        // pågående- och todo-fliken, värdet för HasActingRole anger vilka ärenden som även visas som
+        // "todo").
+        // True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.
 
         try {
             // Check if we have access to the WebService
