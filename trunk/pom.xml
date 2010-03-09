@@ -29,12 +29,6 @@
   </modules>
 
   <dependencies>
-	<dependency>
-      <groupId>HsaTools</groupId>
-      <artifactId>HsaTools-Utils</artifactId>
-      <version>${hsatools.version}</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>HsaTools</groupId>
       <artifactId>HsaTools-Mocks</artifactId>
@@ -50,13 +44,12 @@
   <distributionManagement>
 	<repository>
 	  <id>svn-repo</id>
-	  <name>Öppna Program Release Repo</name>
+	  <name>Ã–ppna Program Release Repo</name>
 	  <url>svn:https://oppna-program.googlecode.com/svn/maven</url>
 	</repository>
 	<snapshotRepository>
 	  <id>svn-repo</id>
-	  <name>Öppna Program Snapshot Repo</name>
-
+	  <name>Ã–ppna Program Snapshot Repo</name>
 	  <url>svn:https://oppna-program.googlecode.com/svn/maven-snapshots</url>
 	</snapshotRepository>
   </distributionManagement>
@@ -66,11 +59,10 @@
     <url>http://oppna-program-medcontrol.googlecode.com/svn/trunk</url>
   </scm>
 
-  
   <repositories>
     <repository>
           <id>svn-repo</id>
-		  <name>Öppna Program Release Repo</name>
+		  <name>Ã–ppna Program Release Repo</name>
           <url>http://oppna-program.googlecode.com/svn/maven</url>
     </repository>
   </repositories>
@@ -78,7 +70,7 @@
   <pluginRepositories>
     <pluginRepository>
           <id>svn-repo</id>
-		  <name>Öppna Program Release Repo</name>
+		  <name>Ã–ppna Program Release Repo</name>
           <url>http://oppna-program.googlecode.com/svn/maven</url>
     </pluginRepository>
   </pluginRepositories>
