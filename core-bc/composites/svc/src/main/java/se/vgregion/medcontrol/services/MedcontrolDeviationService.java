@@ -45,7 +45,7 @@ import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;
  * @author Anders Bergkvist
  */
 public class MedcontrolDeviationService implements DeviationService {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MedcontrolDeviationService.class);
     private static final String CULTURE_LOCALE = "sv-SE";
     private static final Boolean CHECK_FOR_ACTING_ROLE = Boolean.FALSE;
@@ -98,11 +98,11 @@ public class MedcontrolDeviationService implements DeviationService {
         // * culture = sv-SE
         //
         // För att förtydliga de två booleska parametrarna:
-        // * False, false -> Hämtar alla mina ärenden (motsvarar pågående-fliken, värdet för HasActingRole är inte
-        // satt och säger inget).
+        // * False, false -> Hämtar alla mina ärenden (motsvarar pågående-fliken,
+        // värdet för HasActingRole är inte satt och säger inget).
         // * False, true -> Hämtar bara ärenden där jag har en aktiv roll (motsvarar todo-fliken).
-        // * True, false -> Hämtar alla mina ärenden och anger i vilka jag har en aktiv roll (motsvarar pågående-
-        // och todo-fliken, värdet för HasActingRole anger vilka ärenden som även visas som "todo").
+        // * True, false -> Hämtar alla mina ärenden och anger i vilka jag har en aktiv roll (motsvarar
+        // pågående- och todo-fliken, värdet för HasActingRole anger vilka ärenden som även visas som "todo").
         // * True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.
 
         try {
@@ -149,7 +149,7 @@ public class MedcontrolDeviationService implements DeviationService {
         URL wsdlUrl = null;
         QName qName = new QName("http://mycasesservice.munkeby.com/", "MyCasesService");
 
-        MyCasesServiceSoap myCasesServiceSoap = null;
+        MyCasesServiceSoap myCasesServiceSoapLocal = null;
         try {
             MyCasesService myCasesService = null;
             try {
@@ -159,10 +159,10 @@ public class MedcontrolDeviationService implements DeviationService {
                 LOGGER.error("Exception trying to create URL", e);
                 myCasesService = new MyCasesService();
             }
-            myCasesServiceSoap = myCasesService.getMyCasesServiceSoap();
+            myCasesServiceSoapLocal = myCasesService.getMyCasesServiceSoap();
         } catch (Exception e) {
             LOGGER.error("Exception trying to lookup MyCasesServiceSoap", e);
         }
-        return myCasesServiceSoap;
+        return myCasesServiceSoapLocal;
     }
 }
