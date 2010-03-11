@@ -1,10 +1,26 @@
 #labels MedControl
 = Medcontrol portlet =
+
 == Beskrivning ==
-Medcontrol är ett ärende och avvikelsehantering system, utvecklat av Munkeby Systems. Denna portlet används för att skapa en aviserings funktionalitet för inkomna ärenden.
-== Portlet ramverk ==
+Medcontrol är ett ärende- och avvikelsehanteringssystem, utvecklat av Munkeby Systems. Portleten hämtar och visar, för den inloggade användaren, en lista över (för användaren) aktuella ärenden/avvikelser.
+
+== Portletinställningar ==
+Det finns i portleten en inställning som gör det möjligt att ange hur många poster som skall visas i listan. Standardvärde är 5.
+
+== Portletramverk ==
 Medcontrol portlet använder sig av [http://springsource.org Spring MVC Portlet].
-== Webservice ==
-Portleten använder sig av SOAP webservice mot Medcontrol systemet för att hämta ut ärendelista för inloggad person i portalen som använder sig av Medcontrol portleten.
-== Cache hantering ==
-För att göra Medcontrol portleten mindre resurskrävande så används cachning av data. Detta är implementerat med hjälp av [http://ehcache.org Ehcache] och [http://springsource.org Spring annotation]. Inställningar för hur länge cachen skall hålla objekt etc finns i filen ehcache.xml
+
+== Webserviceintegration ==
+Portleten använder sig av SOAP webservice mot Medcontrol systemet för att hämta ut ärendelista för inloggad person. Webservicens API erbjuder även möjlighet att hämta ärenden med en typ av filterering via booleska parametrarna checkForActingRole och includeOnlyActingRole:
+ * False, false -> Hämtar alla mina ärenden (motsvarar pågående-fliken, värdet för HasActingRole är inte satt och säger inget).
+ * False, true -> Hämtar bara ärenden där jag har en aktiv roll (motsvarar todo-fliken).
+ * True, false -> Hämtar alla mina ärenden och anger i vilka jag har en aktiv roll (motsvarar pågående- och todo-fliken, värdet för HasActingRole anger vilka ärenden som även visas som "todo").
+ * True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.
+
+Vi använder kombinationen False, True – dvs hämtar bara ärenden där användaren har en aktiv roll.
+
+== Cache-hantering ==
+För att göra Medcontrol portleten mindre resurskrävande så används cachning av data. Detta är implementerat med hjälp av [http://ehcache.org Ehcache] och [http://springsource.org Spring annotation/aspectj]. Inställningar för hur länge cachen skall hålla objekt etc finns i filen ehcache.xml
+
+== Begränsningar ==
+Webservicen är accesskyddad på IP-nivå.
