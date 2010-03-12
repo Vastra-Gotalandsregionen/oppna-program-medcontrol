@@ -29,14 +29,22 @@
   <%@ include file="/style/style.css"%>
 </style>
 
+<script type="text/javascript"><!--
+
+  function showCase(url) {
+    window.open(url);
+  }
+
+--></script>
+
 <fmt:setBundle basename="se.vgregion.portal.medcontrol.MedControl" />
 
-<div class="module-content accordion">
-<ul class="list emails">
-  <c:forEach items="${devCaseList}" var="case">
-    <li class="unread"><a target="_blank" href="${case.url}">ID=${case.caseNumber}</a>
-      <span>${case.description}</span>
-    </li>
-  </c:forEach>
-</ul>
+<div id="listDivId">
+  <table width="100%">
+    <c:forEach items="${devCaseList}" var="case">
+      <tr onclick="showCase('${case.url}');" title="<fmt:message key="case"/>: ${case.caseNumber}, <fmt:message key="registered"/>: <fmt:formatDate pattern="yyyy-MM-dd" value="${case.registeredDate}" />" style="cursor:pointer">
+        <td class="caseList"><c:out value="${case.description}"></c:out></td>
+      </tr>
+    </c:forEach>
+  </table>
 </div>

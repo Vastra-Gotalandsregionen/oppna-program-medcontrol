@@ -18,6 +18,7 @@
  */
 
 /**
- * Containing medcontrol services.
+ * Containing medcontrol aspects.
  */
 package se.vgregion.medcontrol.aspects;
+

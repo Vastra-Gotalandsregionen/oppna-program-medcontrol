@@ -78,7 +78,7 @@ public class MedcontrolDeviationServiceTest {
 
     @Test
     public void testListDeviationCases() {
-        List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1);
+        List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1, 5);
         assertEquals(2, listDeviationCases.size());
         // Assert case 1
         assertEquals(cases.get(0).getCaseNo(), listDeviationCases.get(0).getCaseNumber());
@@ -98,7 +98,7 @@ public class MedcontrolDeviationServiceTest {
 
     @Test
     public void testNullUser() {
-        List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(null);
+        List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(null, 5);
         assertEquals(0, listDeviationCases.size());
     }
 
@@ -106,7 +106,7 @@ public class MedcontrolDeviationServiceTest {
     public void testNullDateValue() {
         mockMyCasesServiceSoap.getMockArrayOfCase().getCase().clear();
         mockMyCasesServiceSoap.getMockArrayOfCase().getCase().addAll(Arrays.asList(new Case()));
-        List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1);
+        List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1, 5);
         assertEquals(1, listDeviationCases.size());
     }
 
@@ -118,7 +118,7 @@ public class MedcontrolDeviationServiceTest {
         case1.setRegisteredDate("12-12-2009");
         mockMyCasesServiceSoap.getMockArrayOfCase().getCase().clear();
         mockMyCasesServiceSoap.getMockArrayOfCase().getCase().addAll(Arrays.asList(case1));
-        List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1);
+        List<DeviationCase> listDeviationCases = medcontrolDeviationService.listDeviationCases(USER_1, 5);
         assertEquals(1, listDeviationCases.size());
         assertTrue(loggerView.toString().contains("Not valid date"));
     }
@@ -127,7 +127,7 @@ public class MedcontrolDeviationServiceTest {
     public void testWebServiceException() {
         mockMyCasesServiceSoap.setThrowException(true);
         StringWriter loggerView = getLoggerView(Level.ERROR);
-        medcontrolDeviationService.listDeviationCases(USER_1);
+        medcontrolDeviationService.listDeviationCases(USER_1, 5);
         assertTrue(loggerView.toString().contains("MedControl webservice exception"));
     }
 
