@@ -19,8 +19,7 @@
 
 package se.vgregion.portal.medcontrol;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +33,7 @@ import javax.portlet.PortletRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.portlet.MockPortletConfig;
+import org.springframework.mock.web.portlet.MockPortletPreferences;
 import org.springframework.mock.web.portlet.MockRenderRequest;
 import org.springframework.mock.web.portlet.MockRenderResponse;
 import org.springframework.ui.ModelMap;
@@ -51,6 +51,7 @@ public class MedControlViewControllerTest {
     private static final String TITLE_VALUE = "MedControl";
     private MockRenderRequest mockRenderRequest;
     private MockRenderResponse mockRenderResponse;
+    private MockPortletPreferences mockPortletPreferences;
 
     @Before
     public void setUp() throws Exception {
@@ -63,6 +64,7 @@ public class MedControlViewControllerTest {
         medControlViewController.setPortletConfig(mockPortletConfig);
         mockDeviationService = new DeviationServiceMock();
         medControlViewController.setDeviationService(mockDeviationService);
+        mockPortletPreferences = new MockPortletPreferences();
     }
 
     @Test
@@ -71,7 +73,7 @@ public class MedControlViewControllerTest {
         mockPortletConfig.setResourceBundle(new Locale("sv"), null);
         ModelMap model = new ModelMap();
         assertEquals("medcontrol", medControlViewController.showMedControlNotifications(model, mockRenderRequest,
-                mockRenderResponse));
+                mockRenderResponse, mockPortletPreferences));
         assertEquals(0, ((List) model.get("devCaseList")).size());
     }
 
@@ -85,7 +87,7 @@ public class MedControlViewControllerTest {
         mockRenderRequest.setAttribute(PortletRequest.USER_INFO, attributeMap);
 
         assertEquals("medcontrol", medControlViewController.showMedControlNotifications(model, mockRenderRequest,
-                mockRenderResponse));
+                mockRenderResponse, mockPortletPreferences));
         assertNotNull(model.get("devCaseList"));
         assertEquals(TITLE_VALUE + " (0)", mockRenderResponse.getTitle());
     }
@@ -101,14 +103,14 @@ public class MedControlViewControllerTest {
 
         mockDeviationService.throwException = true;
         assertEquals("fatal_error", medControlViewController.showMedControlNotifications(model, mockRenderRequest,
-                mockRenderResponse));
+                mockRenderResponse, mockPortletPreferences));
     }
 
     class DeviationServiceMock implements DeviationService {
         boolean throwException;
 
         @Override
-        public List<DeviationCase> listDeviationCases(String userId) {
+        public List<DeviationCase> listDeviationCases(String userId, Integer maxRows) {
             if (!throwException) {
                 return new ArrayList<DeviationCase>();
             } else {
@@ -118,8 +120,9 @@ public class MedControlViewControllerTest {
     }
 
     class ResourceBundleMock extends ListResourceBundle {
-        private Object[][] contents = new Object[][] {{JAVAX_PORTLET_TITLE_KEY, TITLE_VALUE}};
+        private Object[][] contents = new Object[][] { { JAVAX_PORTLET_TITLE_KEY, TITLE_VALUE } };
 
+        @Override
         protected Object[][] getContents() {
             return contents;
         }

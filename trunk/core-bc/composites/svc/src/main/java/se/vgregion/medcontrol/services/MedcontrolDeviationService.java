@@ -56,7 +56,8 @@ public class MedcontrolDeviationService implements DeviationService {
     /**
      * Constructor that accepts the webservice wsdl URL.
      * 
-     * @param webServiceWsdlUrl the webServiceWsdlUrl to set
+     * @param webServiceWsdlUrl
+     *            the webServiceWsdlUrl to set
      */
     public void setWebServiceWsdlUrl(String webServiceWsdlUrl) {
         this.webServiceWsdlUrl = webServiceWsdlUrl;
@@ -66,11 +67,11 @@ public class MedcontrolDeviationService implements DeviationService {
      * {@inheritDoc}
      */
     @Override
-    public List<DeviationCase> listDeviationCases(String userId) {
-        return populateDeviations(userId);
+    public List<DeviationCase> listDeviationCases(String userId, Integer maxResults) {
+        return populateDeviations(userId, maxResults);
     }
 
-    private List<DeviationCase> populateDeviations(String userId) {
+    private List<DeviationCase> populateDeviations(String userId, Integer maxResults) {
         List<DeviationCase> deviationCases = new ArrayList<DeviationCase>();
         if (!StringUtils.isBlank(userId)) {
             ArrayOfCase userCases = callService(userId);
@@ -84,8 +85,12 @@ public class MedcontrolDeviationService implements DeviationService {
                 deviationCase.setRegisteredDate(parseDate(medcontrolCase.getRegisteredDate()));
                 deviationCase.setUrl(medcontrolCase.getUrl());
                 deviationCases.add(deviationCase);
+                if (maxResults != -1 && deviationCases.size() >= maxResults) {
+                    break;
+                }
             }
         }
+
         return deviationCases;
     }
 
@@ -119,9 +124,8 @@ public class MedcontrolDeviationService implements DeviationService {
             }
 
             // Get user cases
-            arrayOfCase =
-                    myCasesServiceSoap.getUserCases(userId, CHECK_FOR_ACTING_ROLE.booleanValue(),
-                            INCLUDE_ACTING_ROLE_ONLY.booleanValue(), CULTURE_LOCALE);
+            arrayOfCase = myCasesServiceSoap.getUserCases(userId, CHECK_FOR_ACTING_ROLE.booleanValue(),
+                    INCLUDE_ACTING_ROLE_ONLY.booleanValue(), CULTURE_LOCALE);
 
         } catch (Exception e) {
             // We got an exception, reset so we try to reinit it again the next time

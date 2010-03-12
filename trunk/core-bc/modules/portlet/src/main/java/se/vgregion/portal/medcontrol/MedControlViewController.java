@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -71,17 +72,23 @@ public class MedControlViewController {
      *            RenderRequest
      * @param response
      *            RenderResponse
+     * @param preferences
+     *            Portlet preferences
      * @return view (jsp) to be rendered
      */
     @RenderMapping
-    public String showMedControlNotifications(ModelMap model, RenderRequest request, RenderResponse response) {
+    public String showMedControlNotifications(ModelMap model, RenderRequest request, RenderResponse response,
+            final PortletPreferences preferences) {
         String returnView = VIEW_JSP;
         @SuppressWarnings("unchecked")
         Map<String, ?> attributes = (Map<String, ?>) request.getAttribute(PortletRequest.USER_INFO);
         String userId = getUserId(attributes);
 
         try {
-            List<DeviationCase> devCaseList = deviationService.listDeviationCases(userId);
+            Integer listSize = Integer.valueOf(preferences.getValue(
+                    MedControlEditController.MEDCONTROL_PREFS_LIST_SIZE, "-1"));
+
+            List<DeviationCase> devCaseList = deviationService.listDeviationCases(userId, listSize);
 
             // Sort descending on caseNumber
             Comparator<DeviationCase> comparator = Collections.reverseOrder();
