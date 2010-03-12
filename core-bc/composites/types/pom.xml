@@ -8,7 +8,7 @@
   <parent>
     <groupId>medcontrol.medcontrol</groupId>
     <artifactId>medcontrol-core-bc</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.3</version>
   </parent>
   <groupId>medcontrol.medcontrol</groupId>
   <artifactId>medcontrol-core-bc-composite-types</artifactId>
