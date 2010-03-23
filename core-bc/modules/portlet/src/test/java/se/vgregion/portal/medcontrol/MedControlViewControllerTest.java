@@ -110,7 +110,7 @@ public class MedControlViewControllerTest {
         boolean throwException;
 
         @Override
-        public List<DeviationCase> listDeviationCases(String userId, Integer maxRows) {
+        public List<DeviationCase> listDeviationCases(String userId) {
             if (!throwException) {
                 return new ArrayList<DeviationCase>();
             } else {

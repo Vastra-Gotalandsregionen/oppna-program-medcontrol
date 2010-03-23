@@ -85,20 +85,26 @@ public class MedControlViewController {
         String userId = getUserId(attributes);
 
         try {
-            Integer listSize = Integer.valueOf(preferences.getValue(
+            Integer preferredListSize = Integer.valueOf(preferences.getValue(
                     MedControlEditController.MEDCONTROL_PREFS_LIST_SIZE, "-1"));
 
-            List<DeviationCase> devCaseList = deviationService.listDeviationCases(userId, listSize);
+            List<DeviationCase> devCaseList = deviationService.listDeviationCases(userId);
+            Integer listSize = devCaseList.size();
 
             // Sort descending on caseNumber
             Comparator<DeviationCase> comparator = Collections.reverseOrder();
             Collections.sort(devCaseList, comparator);
 
+            // Size list to preferred size
+            if (preferredListSize > -1 && preferredListSize < listSize) {
+                devCaseList = devCaseList.subList(0, preferredListSize);
+            }
+
             model.addAttribute("devCaseList", devCaseList);
 
             ResourceBundle bundle = portletConfig.getResourceBundle(response.getLocale());
             if (bundle != null) {
-                response.setTitle(bundle.getString("javax.portlet.title") + " (" + devCaseList.size() + ")");
+                response.setTitle(bundle.getString("javax.portlet.title") + " (" + listSize + ")");
             }
         } catch (DeviationServiceException e) {
             returnView = VIEW_ERROR_JSP;
