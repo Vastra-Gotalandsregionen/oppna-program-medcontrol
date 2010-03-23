@@ -67,11 +67,11 @@ public class MedcontrolDeviationService implements DeviationService {
      * {@inheritDoc}
      */
     @Override
-    public List<DeviationCase> listDeviationCases(String userId, Integer maxResults) {
-        return populateDeviations(userId, maxResults);
+    public List<DeviationCase> listDeviationCases(String userId) {
+        return populateDeviations(userId);
     }
 
-    private List<DeviationCase> populateDeviations(String userId, Integer maxResults) {
+    private List<DeviationCase> populateDeviations(String userId) {
         List<DeviationCase> deviationCases = new ArrayList<DeviationCase>();
         if (!StringUtils.isBlank(userId)) {
             ArrayOfCase userCases = callService(userId);
@@ -85,9 +85,6 @@ public class MedcontrolDeviationService implements DeviationService {
                 deviationCase.setRegisteredDate(parseDate(medcontrolCase.getRegisteredDate()));
                 deviationCase.setUrl(medcontrolCase.getUrl());
                 deviationCases.add(deviationCase);
-                if (maxResults != -1 && deviationCases.size() >= maxResults) {
-                    break;
-                }
             }
         }
 
