@@ -60,7 +60,7 @@
         users ongoing cases (ongoing tab, the value for HasActingRole is undefined). False, true -> Get only cases
         where the user has an acting role (todo page). True, false -> Get all the users ongoing cases (ongoing and
         todo pages, the value for HasActingRole is true for cases where the user has an acting role). True, true -
-        Meningslös kombination, funkar säkert men svaret är lite odefinierat.</wsdl:documentation>
+        Meningslos kombination, funkar sakert men svaret ar lite odefinierat.</wsdl:documentation>
       <wsdl:input message="tns:GetUserCasesSoapIn" />
       <wsdl:output message="tns:GetUserCasesSoapOut" />
     </wsdl:operation>
