@@ -29,7 +29,9 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.annotation.Order;
 
-//@Component("deviationServiceCacheAspect")
+/**
+ * Aspect handling caching of deviation cases fetched from MedControl via MedcontrolDeviationService.
+ */
 @Aspect
 @Order(2)
 public class DeviationServiceCacheAspect {
@@ -41,6 +43,10 @@ public class DeviationServiceCacheAspect {
     }
 
     /**
+     * Pointcut around listDeviationCases method in MedcontrolDeviationService.
+     * 
+     * Using Ehcache to cache entries from listDeviationCases calls, cache settings (time to live, max elements
+     * etc.) are defiend in ehcache.xml
      * 
      * @param joinPoint
      *            Used to get method parameters value(s)
