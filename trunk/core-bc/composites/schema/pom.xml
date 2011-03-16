@@ -3,13 +3,12 @@
   This is the Schema-composite that produces a jar of JAX-WS interfaces (SEI) - and JAXB2 binding classes for the
   contained schemas. Template version: 1.2-SNAPSHOT Generation time : 2009-12-09 10:55:56 CET
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>se.vgregion.medcontrol</groupId>
         <artifactId>medcontrol-core-bc</artifactId>
-        <version>1.6-SNAPSHOT</version>
+        <version>1.6</version>
     </parent>
     <groupId>se.vgregion.medcontrol</groupId>
     <artifactId>medcontrol-core-bc-composite-schema</artifactId>
