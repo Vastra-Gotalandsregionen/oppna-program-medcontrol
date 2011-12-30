@@ -47,7 +47,7 @@
             <configuration>
               <wsdlDirectory>${basedir}/../schema/src/main/wsdl</wsdlDirectory>
               <wsdlFiles>
-                <wsdlFile>medcontrol.wsdl</wsdlFile>
+                <wsdlFile>MyCasesService.asmx.wsdl</wsdlFile>
               </wsdlFiles>
               <packageName>se.vgregion.portal.medcontrol.ws</packageName>
               <extension>true</extension>

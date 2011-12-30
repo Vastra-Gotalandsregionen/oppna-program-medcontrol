@@ -19,21 +19,25 @@
 
 package se.vgregion.medcontrol.domain;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  * Domain object for a deviation case.
- * 
- * @author David Bennehult
+ *
+ * @author David Rosell
  * @author Anders Bergkvist
  */
-public class DeviationCase implements Comparable<DeviationCase> {
-
+public class DeviationCase implements Comparable<DeviationCase>, Serializable {
     private String caseNumber;
     private String description;
-    private boolean hasActingRole;
+    private Boolean actingRole;
     private String url;
-    private Date registeredDate;
+    private String registeredDate;
+    private String phaseName;
+    private String phaseType;
+    private String registeredBy;
+    private String typeAlias;
+    private String typeDisplayName;
 
     public String getCaseNumber() {
         return caseNumber;
@@ -51,12 +55,16 @@ public class DeviationCase implements Comparable<DeviationCase> {
         this.description = description;
     }
 
-    public boolean isHasActingRole() {
-        return hasActingRole;
+    public Boolean isActingRole() {
+        return actingRole;
     }
 
-    public void setHasActingRole(boolean hasActingRole) {
-        this.hasActingRole = hasActingRole;
+    public boolean getActingRole() {
+        return actingRole;
+    }
+
+    public void setActingRole(Boolean actingRole) {
+        this.actingRole = actingRole;
     }
 
     public String getUrl() {
@@ -67,80 +75,83 @@ public class DeviationCase implements Comparable<DeviationCase> {
         this.url = url;
     }
 
-    /**
-     * Date cloning getter.
-     * 
-     * @return cloned date
-     */
-    public Date getRegisteredDate() {
-        if (registeredDate == null) {
-            return null;
-        } else {
-            return (Date) registeredDate.clone();
-        }
+    public String getPhaseName() {
+        return phaseName;
     }
 
-    /**
-     * Date cloning setter.
-     * 
-     * @param registeredDate
-     *            date to clone and set
-     */
-    public void setRegisteredDate(Date registeredDate) {
-        if (registeredDate == null) {
-            this.registeredDate = null;
-        } else {
-            this.registeredDate = (Date) registeredDate.clone();
-        }
+    public void setPhaseName(String phaseName) {
+        this.phaseName = phaseName;
+    }
+
+    public String getPhaseType() {
+        return phaseType;
+    }
+
+    public void setPhaseType(String phaseType) {
+        this.phaseType = phaseType;
+    }
+
+    public String getRegisteredBy() {
+        return registeredBy;
+    }
+
+    public void setRegisteredBy(String registeredBy) {
+        this.registeredBy = registeredBy;
+    }
+
+    public String getTypeAlias() {
+        return typeAlias;
+    }
+
+    public void setTypeAlias(String typeAlias) {
+        this.typeAlias = typeAlias;
+    }
+
+    public String getTypeDisplayName() {
+        return typeDisplayName;
+    }
+
+    public void setTypeDisplayName(String typeDisplayName) {
+        this.typeDisplayName = typeDisplayName;
+    }
+
+    public String getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(String registeredDate) {
+        this.registeredDate = registeredDate;
     }
 
     /**
      * {@inheritDoc}
      */
     public int compareTo(DeviationCase dc2) {
-        if (getCaseNumber() != null && dc2.getCaseNumber() != null) {
-            return getCaseNumber().compareTo(dc2.getCaseNumber());
+        if (caseNumber != null && dc2.getCaseNumber() != null) {
+            if (actingRole != dc2.isActingRole()) {
+                return actingRole.compareTo(dc2.isActingRole());
+            }
+
+            return caseNumber.compareTo(dc2.getCaseNumber());
         } else {
             throw new IllegalArgumentException("Cannot compare, at least one of the given case numbers is null");
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result;
-        if (caseNumber != null) {
-            result += caseNumber.hashCode();
-        }
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DeviationCase that = (DeviationCase) o;
+
+        if (caseNumber != null ? !caseNumber.equals(that.caseNumber) : that.caseNumber != null) return false;
+
+        return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        DeviationCase other = (DeviationCase) obj;
-        if (caseNumber == null) {
-            if (other.caseNumber != null) {
-                return false;
-            }
-        } else if (!caseNumber.equals(other.caseNumber)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return caseNumber != null ? caseNumber.hashCode() : 0;
     }
 }

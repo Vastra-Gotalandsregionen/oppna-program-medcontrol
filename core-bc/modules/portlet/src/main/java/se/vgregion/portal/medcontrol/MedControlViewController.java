@@ -19,27 +19,16 @@
 
 package se.vgregion.portal.medcontrol;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-
 import se.vgregion.medcontrol.domain.DeviationCase;
 import se.vgregion.medcontrol.services.DeviationService;
-import se.vgregion.medcontrol.services.DeviationServiceException;
+
+import javax.portlet.*;
+import java.util.*;
 
 @Controller
 @RequestMapping("VIEW")
@@ -65,59 +54,97 @@ public class MedControlViewController {
 
     /**
      * RenderMapping handler, for display of MedControl notifications.
-     * 
-     * @param model
-     *            A Spring MVC ModelMap
-     * @param request
-     *            RenderRequest
-     * @param response
-     *            RenderResponse
-     * @param preferences
-     *            Portlet preferences
+     *
+     * @param model       A Spring MVC ModelMap
+     * @param request     RenderRequest
+     * @param response    RenderResponse
+     * @param preferences Portlet preferences
      * @return view (jsp) to be rendered
      */
     @RenderMapping
     public String showMedControlNotifications(ModelMap model, RenderRequest request, RenderResponse response,
             final PortletPreferences preferences) {
-        String returnView = VIEW_JSP;
-        @SuppressWarnings("unchecked")
-        Map<String, ?> attributes = (Map<String, ?>) request.getAttribute(PortletRequest.USER_INFO);
-        String userId = getUserId(attributes);
+        String userId = getRemoteUserId(request);
 
+        List<DeviationCase> deviationCases = null;
         try {
-            Integer preferredListSize = Integer.valueOf(preferences.getValue(
-                    MedControlEditController.MEDCONTROL_PREFS_LIST_SIZE, "-1"));
+            deviationCases = deviationService.listDeviationCases(userId);
+        } catch (Exception e) {
+            return VIEW_ERROR_JSP;
+        }
 
-            List<DeviationCase> devCaseList = deviationService.listDeviationCases(userId);
-            Integer listSize = devCaseList.size();
+        if (deviationCases == null) {
+            String title = String.format("Ingen MedControl access [%s]", userId);
+            response.setTitle(title);
+            model.addAttribute("mine", Collections.emptyList());
+            model.addAttribute("others", Collections.emptyList());
+            model.addAttribute("totalCnt", -1);
+            model.addAttribute("showAutoHide", "");
+        } else {
+            DeviationCaseHandler deviationCaseHandler = new DeviationCaseHandler(userId, deviationCases).invoke();
+            List<DeviationCase> acting = deviationCaseHandler.getMine();
+            List<DeviationCase> other = deviationCaseHandler.getOthers();
+
+            String title = String.format("Mina MedControl-ärenden (%s/%s)", acting.size(), deviationCases.size());
+            response.setTitle(title);
+            model.addAttribute("mine", acting);
+            model.addAttribute("others", other);
+            model.addAttribute("totalCnt", deviationCases.size());
+            model.addAttribute("mineCnt", acting.size());
+            model.addAttribute("othersCnt", other.size());
+            model.addAttribute("showOthers", "true");
+            model.addAttribute("showAutoHide", "true");
+        }
+
+        return VIEW_JSP;
+    }
+
+    private String getRemoteUserId(final PortletRequest request) {
+        Map<String, ?> userInfo = (Map<String, ?>) request.getAttribute(PortletRequest.USER_INFO);
+        String userId = "";
+        if (userInfo != null && userInfo.get(PortletRequest.P3PUserInfos.USER_LOGIN_ID.toString()) != null) {
+            userId = (String) userInfo.get(PortletRequest.P3PUserInfos.USER_LOGIN_ID.toString());
+        }
+
+        return userId;
+    }
+
+    private class DeviationCaseHandler {
+        private String userId;
+        private List<DeviationCase> deviationCases;
+        private List<DeviationCase> mine;
+        private List<DeviationCase> others;
+
+        public DeviationCaseHandler(String userId, List<DeviationCase> deviationCases) {
+            this.deviationCases = deviationCases;
+            this.userId = userId;
+        }
+
+        public List<DeviationCase> getMine() {
+            return mine;
+        }
+
+        public List<DeviationCase> getOthers() {
+            return others;
+        }
+
+        public DeviationCaseHandler invoke() {
+            mine = new ArrayList<DeviationCase>();
+            others = new ArrayList<DeviationCase>();
+            for (DeviationCase devCase : deviationCases) {
+                String filter = String.format("(%s)", userId);
+                if (devCase.isActingRole() || devCase.getRegisteredBy().endsWith(filter)) {
+                    mine.add(devCase);
+                } else {
+                    others.add(devCase);
+                }
+            }
 
             // Sort descending on caseNumber
             Comparator<DeviationCase> comparator = Collections.reverseOrder();
-            Collections.sort(devCaseList, comparator);
-
-            // Size list to preferred size
-            if (preferredListSize > -1 && preferredListSize < listSize) {
-                devCaseList = devCaseList.subList(0, preferredListSize);
-            }
-
-            model.addAttribute("devCaseList", devCaseList);
-
-            ResourceBundle bundle = portletConfig.getResourceBundle(response.getLocale());
-            if (bundle != null) {
-                response.setTitle(bundle.getString("javax.portlet.title") + " (" + listSize + ")");
-            }
-        } catch (DeviationServiceException e) {
-            returnView = VIEW_ERROR_JSP;
+            Collections.sort(mine, comparator);
+            Collections.sort(others, comparator);
+            return this;
         }
-
-        return returnView;
-    }
-
-    private String getUserId(Map<String, ?> attributes) {
-        String userId = "";
-        if (attributes != null) {
-            userId = (String) attributes.get(PortletRequest.P3PUserInfos.USER_LOGIN_ID.toString());
-        }
-        return userId;
     }
 }

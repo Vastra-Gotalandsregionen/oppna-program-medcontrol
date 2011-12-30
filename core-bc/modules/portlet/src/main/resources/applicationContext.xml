@@ -45,7 +45,7 @@
     <property name="cacheName" value="deviationCache"/>
   </bean>
 
-  <bean id="deviationService" class="se.vgregion.medcontrol.services.MedcontrolDeviationService">
-    <property name="webServiceWsdlUrl" value="http://medcontrol.vgregion.se/MyCases/MyCasesService.asmx?WSDL"/>
+  <bean id="deviationService" class="se.vgregion.medcontrol.services.MedControlDeviationService">
+    <property name="webServiceWsdlUrl" value="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?WSDL"/>
   </bean>
 </beans>

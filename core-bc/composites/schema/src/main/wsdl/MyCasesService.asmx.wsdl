@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://mycasesservice.munkeby.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://mycasesservice.munkeby.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no built in security and should not be available for users.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://mycasesservice.munkeby.com/">
+      <s:element name="GetUserCases">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="checkForActingRole" type="s:boolean"/>
+            <s:element minOccurs="1" maxOccurs="1" name="includeOnlyActingRole" type="s:boolean"/>
+            <s:element minOccurs="0" maxOccurs="1" name="culture" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserCasesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserCasesResult" type="tns:ArrayOfCase"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCase">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Case" nillable="true" type="tns:Case"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Case">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TypeAlias" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TypeDisplayName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="InstanceId" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="HasActingRole" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CaseNo" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="RegisteredBy" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="RegisteredDate" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PhaseName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetUserCasesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserCases"/>
+  </wsdl:message>
+  <wsdl:message name="GetUserCasesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserCasesResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="MyCasesServiceSoap">
+    <wsdl:operation name="GetUserCases">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the users current cases. If includeOnlyActingRole is set only cases where the users role is currently acting is included. Otherwise checkForActingRole can be set to mark cases where the user has an acting role.How to use the booleans: False, false -&gt; Get all the users ongoing cases (ongoing tab, the value for HasActingRole is undefined). False, true -&gt; Get only cases where the user has an acting role (todo page). True, false -&gt; Get all the users ongoing cases (ongoing and todo pages, the value for HasActingRole is true for cases where the user has an acting role). True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.</wsdl:documentation>
+      <wsdl:input message="tns:GetUserCasesSoapIn"/>
+      <wsdl:output message="tns:GetUserCasesSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MyCasesServiceSoap" type="tns:MyCasesServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetUserCases">
+      <soap:operation soapAction="http://mycasesservice.munkeby.com/GetUserCases" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MyCasesServiceSoap12" type="tns:MyCasesServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetUserCases">
+      <soap12:operation soapAction="http://mycasesservice.munkeby.com/GetUserCases" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MyCasesService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service returns 'MyCases' for a given user. It has no built in security and should not be available for users.</wsdl:documentation>
+    <wsdl:port name="MyCasesServiceSoap" binding="tns:MyCasesServiceSoap">
+      <soap:address location="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="MyCasesServiceSoap12" binding="tns:MyCasesServiceSoap12">
+      <soap12:address location="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
