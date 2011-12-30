@@ -33,8 +33,7 @@ public interface DeviationService {
     /**
      * Returns a list of deviation cases.
      * 
-     * @param userId
-     *            To get DeviationCase(s) for.
+     * @param userId  To get DeviationCase(s) for.
      * @return List of {@link DeviationCase}
      */
     List<DeviationCase> listDeviationCases(String userId);

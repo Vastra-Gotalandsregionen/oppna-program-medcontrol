@@ -69,7 +69,7 @@ public class MedControlEditController {
     public MedControlFormBacker formBackingObject(PortletPreferences preferences) {
         MedControlFormBacker medControlFormBacker = new MedControlFormBacker();
         medControlFormBacker.setListItemLimitation(Integer.valueOf(preferences.getValue(
-                MEDCONTROL_PREFS_LIST_SIZE, "5")));
+                MEDCONTROL_PREFS_LIST_SIZE, "1")));
         return medControlFormBacker;
     }
 

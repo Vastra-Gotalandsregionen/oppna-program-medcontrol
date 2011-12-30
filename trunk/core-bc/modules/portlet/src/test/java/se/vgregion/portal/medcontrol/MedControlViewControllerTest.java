@@ -40,7 +40,6 @@ import org.springframework.ui.ModelMap;
 
 import se.vgregion.medcontrol.domain.DeviationCase;
 import se.vgregion.medcontrol.services.DeviationService;
-import se.vgregion.medcontrol.services.DeviationServiceException;
 
 public class MedControlViewControllerTest {
 
@@ -48,7 +47,7 @@ public class MedControlViewControllerTest {
     private DeviationServiceMock mockDeviationService;
     private MockPortletConfig mockPortletConfig;
     private static final String JAVAX_PORTLET_TITLE_KEY = "javax.portlet.title";
-    private static final String TITLE_VALUE = "MedControl";
+    private static final String TITLE_VALUE = "Mina MedControl-ärenden";
     private MockRenderRequest mockRenderRequest;
     private MockRenderResponse mockRenderResponse;
     private MockPortletPreferences mockPortletPreferences;
@@ -74,7 +73,7 @@ public class MedControlViewControllerTest {
         ModelMap model = new ModelMap();
         assertEquals("medcontrol", medControlViewController.showMedControlNotifications(model, mockRenderRequest,
                 mockRenderResponse, mockPortletPreferences));
-        assertEquals(0, ((List) model.get("devCaseList")).size());
+        assertEquals(0, ((List) model.get("mine")).size());
     }
 
     @Test
@@ -88,8 +87,9 @@ public class MedControlViewControllerTest {
 
         assertEquals("medcontrol", medControlViewController.showMedControlNotifications(model, mockRenderRequest,
                 mockRenderResponse, mockPortletPreferences));
-        assertNotNull(model.get("devCaseList"));
-        assertEquals(TITLE_VALUE + " (0)", mockRenderResponse.getTitle());
+        assertNotNull(model.get("mine"));
+//        assertNotNull(model.get("devCaseList"));
+        assertEquals(TITLE_VALUE + " (0/0)", mockRenderResponse.getTitle());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class MedControlViewControllerTest {
             if (!throwException) {
                 return new ArrayList<DeviationCase>();
             } else {
-                throw new DeviationServiceException("Test error", null);
+                throw new RuntimeException("Test error", null);
             }
         }
     }
