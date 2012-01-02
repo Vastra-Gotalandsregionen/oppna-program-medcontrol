@@ -17,7 +17,7 @@
  *
  */
 
-package se.vgregion.medcontrol.services;
+package se.vgregion.portal.medcontrol.services;
 
 import java.util.ArrayList;
 import java.util.List;

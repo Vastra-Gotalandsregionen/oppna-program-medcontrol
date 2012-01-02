@@ -19,6 +19,7 @@
 
 package se.vgregion.portal.medcontrol;
 
+import se.vgregion.portal.medcontrol.domain.DeviationCase;
 import net.sf.ehcache.Ehcache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.web.portlet.bind.annotation.ResourceMapping;
-import se.vgregion.medcontrol.domain.DeviationCase;
-import se.vgregion.medcontrol.services.DeviationService;
+import se.vgregion.portal.medcontrol.services.DeviationService;
 
 import javax.annotation.Resource;
 import javax.portlet.*;
@@ -101,6 +100,9 @@ public class MedControlViewController {
             model.addAttribute("othersCnt", other.size());
             model.addAttribute("showOthers", "true");
             model.addAttribute("showAutoHide", "true");
+        }
+        if ("lifra1".equals(userId)) {
+            model.addAttribute("showAutoHide", "");
         }
 
         return VIEW_JSP;

@@ -17,12 +17,12 @@
  *
  */
 
-package se.vgregion.medcontrol.services;
+package se.vgregion.portal.medcontrol.services;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.vgregion.medcontrol.domain.DeviationCase;
+import se.vgregion.portal.medcontrol.domain.DeviationCase;
 import se.vgregion.portal.medcontrol.ws.Case;
 import se.vgregion.portal.medcontrol.ws.MyCasesService;
 import se.vgregion.portal.medcontrol.ws.MyCasesServiceSoap;

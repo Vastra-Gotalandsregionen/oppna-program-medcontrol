@@ -17,7 +17,7 @@
  *
  */
 
-package se.vgregion.medcontrol.aspects;
+package se.vgregion.portal.medcontrol.aspects;
 
 import java.io.Serializable;
 import java.util.Collection;

@@ -17,7 +17,7 @@
  *
  */
 
-package se.vgregion.medcontrol.domain;
+package se.vgregion.portal.medcontrol.domain;
 
 import java.io.Serializable;
 

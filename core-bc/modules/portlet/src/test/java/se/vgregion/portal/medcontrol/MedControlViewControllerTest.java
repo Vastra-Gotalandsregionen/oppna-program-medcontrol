@@ -30,6 +30,7 @@ import java.util.Map;
 
 import javax.portlet.PortletRequest;
 
+import se.vgregion.portal.medcontrol.domain.DeviationCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.portlet.MockPortletConfig;
@@ -38,8 +39,7 @@ import org.springframework.mock.web.portlet.MockRenderRequest;
 import org.springframework.mock.web.portlet.MockRenderResponse;
 import org.springframework.ui.ModelMap;
 
-import se.vgregion.medcontrol.domain.DeviationCase;
-import se.vgregion.medcontrol.services.DeviationService;
+import se.vgregion.portal.medcontrol.services.DeviationService;
 
 public class MedControlViewControllerTest {
 

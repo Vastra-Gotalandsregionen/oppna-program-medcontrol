@@ -17,7 +17,7 @@
  *
  */
 
-package se.vgregion.medcontrol.aspects;
+package se.vgregion.portal.medcontrol.aspects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
