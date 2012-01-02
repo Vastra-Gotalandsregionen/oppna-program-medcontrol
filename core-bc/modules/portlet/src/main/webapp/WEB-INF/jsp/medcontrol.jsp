@@ -90,9 +90,12 @@
                     </c:forEach>
                 </ul>
             </div>
-            <form class="notify-cache" action="${refreshCache}" method="POST">
-                <input type="submit" value="Ladda om"/>
-            </form>
+            <a class="notify-refresh" title="Ladda om" href="${refreshCache}">
+                <img src="/regionportalen-theme/images/portlet/refresh.png" alt="Ladda om">
+            </a>
+            <%--<form class="notify-cache" action="${refreshCache}" method="POST">--%>
+                <%--<input type="submit" value="Ladda om"/>--%>
+            <%--</form>--%>
         </c:if>
     </c:if>
 </div>

@@ -43,6 +43,4 @@
   <!-- Enables annotations -->
   <context:annotation-config />
 
-  <bean id="medControlFormBackerValidator" class="se.vgregion.portal.medcontrol.MedControlFormBackerValidator"/>
-
 </beans>

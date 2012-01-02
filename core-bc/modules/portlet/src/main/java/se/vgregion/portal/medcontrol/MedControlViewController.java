@@ -19,14 +19,18 @@
 
 package se.vgregion.portal.medcontrol;
 
+import net.sf.ehcache.Ehcache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import se.vgregion.medcontrol.domain.DeviationCase;
 import se.vgregion.medcontrol.services.DeviationService;
 
+import javax.annotation.Resource;
 import javax.portlet.*;
 import java.util.*;
 
@@ -47,6 +51,9 @@ public class MedControlViewController {
 
     @Autowired
     private DeviationService deviationService = null;
+
+    @Resource(name = "deviationCasesCache")
+    private Ehcache cache;
 
     public void setDeviationService(DeviationService deviationService) {
         this.deviationService = deviationService;
@@ -97,6 +104,12 @@ public class MedControlViewController {
         }
 
         return VIEW_JSP;
+    }
+
+    @ActionMapping
+    public void refreshCache(ActionRequest request) {
+        String userId = getRemoteUserId(request);
+        cache.remove(userId);
     }
 
     private String getRemoteUserId(final PortletRequest request) {

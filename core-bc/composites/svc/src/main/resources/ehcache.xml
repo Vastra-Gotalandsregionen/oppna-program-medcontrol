@@ -21,11 +21,19 @@
 
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nonamespaceschemalocation="http://ehcache.org/ehcache.xsd">
 
-  <defaultCache maxElementsInMemory="1000" eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
-    memoryStoreEvictionPolicy="LRU" />
+  <defaultCache maxElementsInMemory="1000"
+                eternal="false"
+                timeToIdleSeconds="120"
+                timeToLiveSeconds="120"
+                memoryStoreEvictionPolicy="LRU" />
   
   <!-- Cache to hold deviation case objects -->
-  <cache name="deviationCache" maxElementsInMemory="50" eternal="false" overflowToDisk="false" timeToIdleSeconds="900" 
-    timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
+  <cache name="deviationCache"
+         maxElementsInMemory="50"
+         eternal="false"
+         overflowToDisk="false"
+         timeToIdleSeconds="900"
+         timeToLiveSeconds="3600"
+         memoryStoreEvictionPolicy="LRU" />
 
 </ehcache>
