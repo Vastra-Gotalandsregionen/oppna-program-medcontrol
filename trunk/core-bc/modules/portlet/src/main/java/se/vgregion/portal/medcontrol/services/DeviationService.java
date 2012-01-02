@@ -17,7 +17,24 @@
  *
  */
 
+package se.vgregion.portal.medcontrol.services;
+
+import java.util.List;
+
+import se.vgregion.portal.medcontrol.domain.DeviationCase;
+
 /**
- * Containing domain objects.
+ * 
+ * @author David Bennehult
+ * @author Anders Bergkvist
  */
-package se.vgregion.medcontrol.domain;
+public interface DeviationService {
+
+    /**
+     * Returns a list of deviation cases.
+     * 
+     * @param userId  To get DeviationCase(s) for.
+     * @return List of {@link DeviationCase}
+     */
+    List<DeviationCase> listDeviationCases(String userId);
+}

@@ -17,7 +17,7 @@
  *
  */
 
-package se.vgregion.medcontrol.services;
+package se.vgregion.portal.medcontrol.services;
 
 import static org.junit.Assert.*;
 
@@ -36,7 +36,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import se.vgregion.medcontrol.domain.DeviationCase;
+import se.vgregion.portal.medcontrol.domain.DeviationCase;
 import se.vgregion.portal.medcontrol.ws.Case;
 
 public class MedcontrolDeviationServiceTest {

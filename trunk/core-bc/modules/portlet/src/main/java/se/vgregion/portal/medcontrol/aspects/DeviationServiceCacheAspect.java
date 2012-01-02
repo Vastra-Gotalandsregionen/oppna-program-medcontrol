@@ -17,7 +17,7 @@
  *
  */
 
-package se.vgregion.medcontrol.aspects;
+package se.vgregion.portal.medcontrol.aspects;
 
 import javax.annotation.Resource;
 
@@ -54,7 +54,7 @@ public class DeviationServiceCacheAspect {
      * @throws Throwable
      *             If something goes wrong
      */
-    @Around("execution(* se.vgregion.medcontrol.services.MedControlDeviationService.listDeviationCases(java.lang.String))")
+    @Around("execution(* se.vgregion.portal.medcontrol.services.MedControlDeviationService.listDeviationCases(java.lang.String))")
     public Object cacheDeviationCases(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] arguments = joinPoint.getArgs();
         String location = (String) arguments[0];

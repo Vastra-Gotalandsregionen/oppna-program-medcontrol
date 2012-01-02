@@ -34,7 +34,7 @@
   <!-- Enable @AspectJ Support -->
   <aop:aspectj-autoproxy/>
   
-  <bean id="deviationServiceCacheAspect" class="se.vgregion.medcontrol.aspects.DeviationServiceCacheAspect" />
+  <bean id="deviationServiceCacheAspect" class="se.vgregion.portal.medcontrol.aspects.DeviationServiceCacheAspect" />
   
   <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
     <property name="configLocation" value="classpath:ehcache.xml"/>
@@ -45,7 +45,7 @@
     <property name="cacheName" value="deviationCache"/>
   </bean>
 
-  <bean id="deviationService" class="se.vgregion.medcontrol.services.MedControlDeviationService">
+  <bean id="deviationService" class="se.vgregion.portal.medcontrol.services.MedControlDeviationService">
     <property name="webServiceWsdlUrl" value="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?WSDL"/>
   </bean>
 </beans>
