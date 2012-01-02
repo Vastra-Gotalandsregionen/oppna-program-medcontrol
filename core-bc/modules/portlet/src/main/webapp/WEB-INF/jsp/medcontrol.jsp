@@ -147,7 +147,7 @@
         }
         if (${showAutoHide eq "true"}) {
             if ('${totalCnt}' == 0) {
-                A.one('#p_p_id_MedControl_WAR_medcontrolcorebcmoduleportlet_').hide();
+                A.one('#p_p_id_MedControl_WAR_medcontrolportlet_').hide();
             }
         }
 
