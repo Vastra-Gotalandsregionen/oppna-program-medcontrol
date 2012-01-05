@@ -54,10 +54,9 @@
                             </c:if>
                             <a href="${item.url}"
                                class="notify-link"
-                               target="_blank"
-                               title="&Auml;rende: ${item.caseNumber}, Registrerat: ${item.registeredDate}">
+                               title="${item.caseNumber}: ${item.registeredDate}">
                                     ${item.description}&nbsp;<img src="/regionportalen-theme/images/external_link_icon.gif"
-                                                                  alt="länka ut">
+                                                                  alt="Direkt länk">
                             </a>
                         </li>
                         <c:if test="${cnt.count == 5 && mineCnt > 5}">
@@ -81,10 +80,9 @@
                                   title="${item.phaseName}">${item.phaseType}</span>
                             <a href="${item.url}"
                                class="notify-link"
-                               target="_blank"
                                title="${item.caseNumber}: ${item.registeredDate}">
                                     ${item.description}&nbsp;<img src="/regionportalen-theme/images/external_link_icon.gif"
-                                                                  alt="länka ut">
+                                                                  alt="Direkt länk">
                             </a>
                         </li>
                     </c:forEach>
@@ -93,40 +91,11 @@
             <a class="notify-refresh" title="Ladda om" href="${refreshCache}">
                 <img src="/regionportalen-theme/images/portlet/refresh.png" alt="Ladda om">
             </a>
-            <%--<form class="notify-cache" action="${refreshCache}" method="POST">--%>
-                <%--<input type="submit" value="Ladda om"/>--%>
-            <%--</form>--%>
         </c:if>
     </c:if>
 </div>
 
 <script type="text/javascript">
-    AUI().ready('io', function(A) {
-        A.all('.notify-issues a').on('click', function(e) {
-            e.halt();
-            var url = e.target.get('href');
-            if (e.target.getDOM().tagName != 'A') {
-                url = e.target.ancestor('a').get('href');
-            }
-            A.io.request('${medcontrolUrl}', {
-                cache: false,
-                sync: true,
-                timeout: 5000,
-                dataType: 'json',
-                method: 'get',
-                on: {
-                    success: function() {
-                        url += this.get("responseData");
-                        window.open(url);
-                    },
-                    failure: function() {
-                        window.open(url);
-                    }
-                }
-            });
-        });
-    });
-
     AUI().ready('node', 'event', 'transition', function(A) {
 
         function toggle(id) {

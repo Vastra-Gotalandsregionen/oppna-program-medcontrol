@@ -19,9 +19,11 @@
 
 package se.vgregion.portal.medcontrol.services;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import se.vgregion.portal.medcontrol.domain.DeviationCase;
 import se.vgregion.portal.medcontrol.ws.Case;
 import se.vgregion.portal.medcontrol.ws.MyCasesService;
@@ -50,6 +52,10 @@ public class MedControlDeviationService implements DeviationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MedControlDeviationService.class);
 
+
+    @Value("${medcontrol.linkout.base}")
+    private String linkoutBase;
+
     private String webServiceWsdlUrl = "http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?WSDL";
 
     private MyCasesServiceSoap myCasesServiceSoap;
@@ -77,7 +83,22 @@ public class MedControlDeviationService implements DeviationService {
         for (Case medControlCase : cases) {
             deviationCases.add(map(medControlCase));
         }
+        processUrl(deviationCases);
         return deviationCases;
+    }
+
+    private void processUrl(List<DeviationCase> deviationCases) {
+        if (deviationCases != null && StringUtils.isNotBlank(linkoutBase)) {
+            for (DeviationCase deviation : deviationCases) {
+                System.out.println("Deviation Url: ["+deviation.getUrl()+"]");
+                String correctedUrl = deviation.getUrl() + "&page=Context";
+                System.out.println("Corrected Url: ["+correctedUrl+"]");
+
+                String base64Url = Base64.encodeBase64URLSafeString(correctedUrl.getBytes());
+
+                deviation.setUrl(linkoutBase + base64Url);
+            }
+        }
     }
 
     private DeviationCase map(Case medControlCase) {

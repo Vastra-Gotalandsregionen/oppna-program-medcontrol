@@ -50,7 +50,6 @@ public class MedControlViewControllerTest {
     private static final String TITLE_VALUE = "Mina MedControl-ärenden";
     private MockRenderRequest mockRenderRequest;
     private MockRenderResponse mockRenderResponse;
-    private MockPortletPreferences mockPortletPreferences;
 
     @Before
     public void setUp() throws Exception {
@@ -60,10 +59,8 @@ public class MedControlViewControllerTest {
         mockPortletConfig = new MockPortletConfig();
         mockPortletConfig.setResourceBundle(new Locale("sv"), new ResourceBundleMock());
         medControlViewController = new MedControlViewController();
-        medControlViewController.setPortletConfig(mockPortletConfig);
         mockDeviationService = new DeviationServiceMock();
         medControlViewController.setDeviationService(mockDeviationService);
-        mockPortletPreferences = new MockPortletPreferences();
     }
 
     @Test
@@ -72,7 +69,7 @@ public class MedControlViewControllerTest {
         mockPortletConfig.setResourceBundle(new Locale("sv"), null);
         ModelMap model = new ModelMap();
         assertEquals("medcontrol", medControlViewController.showMedControlNotifications(model, mockRenderRequest,
-                mockRenderResponse, mockPortletPreferences));
+                mockRenderResponse));
         assertEquals(0, ((List) model.get("mine")).size());
     }
 
@@ -86,9 +83,8 @@ public class MedControlViewControllerTest {
         mockRenderRequest.setAttribute(PortletRequest.USER_INFO, attributeMap);
 
         assertEquals("medcontrol", medControlViewController.showMedControlNotifications(model, mockRenderRequest,
-                mockRenderResponse, mockPortletPreferences));
+                mockRenderResponse));
         assertNotNull(model.get("mine"));
-//        assertNotNull(model.get("devCaseList"));
         assertEquals(TITLE_VALUE + " (0/0)", mockRenderResponse.getTitle());
     }
 
@@ -103,7 +99,7 @@ public class MedControlViewControllerTest {
 
         mockDeviationService.throwException = true;
         assertEquals("fatal_error", medControlViewController.showMedControlNotifications(model, mockRenderRequest,
-                mockRenderResponse, mockPortletPreferences));
+                mockRenderResponse));
     }
 
     class DeviationServiceMock implements DeviationService {
