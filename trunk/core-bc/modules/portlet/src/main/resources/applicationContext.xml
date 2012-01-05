@@ -33,6 +33,8 @@
   
   <!-- Enable @AspectJ Support -->
   <aop:aspectj-autoproxy/>
+
+  <context:property-placeholder location="classpath:medcontrol.properties"/>
   
   <bean id="deviationServiceCacheAspect" class="se.vgregion.portal.medcontrol.aspects.DeviationServiceCacheAspect" />
   
@@ -46,6 +48,6 @@
   </bean>
 
   <bean id="deviationService" class="se.vgregion.portal.medcontrol.services.MedControlDeviationService">
-    <property name="webServiceWsdlUrl" value="http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?WSDL"/>
+    <property name="webServiceWsdlUrl" value="${medcontrol.ws}"/>
   </bean>
 </beans>

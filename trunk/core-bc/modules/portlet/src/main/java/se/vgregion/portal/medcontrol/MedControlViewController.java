@@ -42,13 +42,6 @@ public class MedControlViewController {
     private static final String VIEW_ERROR_JSP = "fatal_error";
 
     @Autowired
-    private PortletConfig portletConfig = null;
-
-    public void setPortletConfig(PortletConfig portletConfig) {
-        this.portletConfig = portletConfig;
-    }
-
-    @Autowired
     private DeviationService deviationService = null;
 
     @Resource(name = "deviationCasesCache")
@@ -64,12 +57,10 @@ public class MedControlViewController {
      * @param model       A Spring MVC ModelMap
      * @param request     RenderRequest
      * @param response    RenderResponse
-     * @param preferences Portlet preferences
      * @return view (jsp) to be rendered
      */
     @RenderMapping
-    public String showMedControlNotifications(ModelMap model, RenderRequest request, RenderResponse response,
-            final PortletPreferences preferences) {
+    public String showMedControlNotifications(ModelMap model, RenderRequest request, RenderResponse response) {
         String userId = getRemoteUserId(request);
 
         List<DeviationCase> deviationCases = null;
