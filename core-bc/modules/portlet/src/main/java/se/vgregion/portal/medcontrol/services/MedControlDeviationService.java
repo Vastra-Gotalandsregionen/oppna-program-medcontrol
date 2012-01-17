@@ -90,10 +90,7 @@ public class MedControlDeviationService implements DeviationService {
     private void processUrl(List<DeviationCase> deviationCases) {
         if (deviationCases != null && StringUtils.isNotBlank(linkoutBase)) {
             for (DeviationCase deviation : deviationCases) {
-                System.out.println("Deviation Url: ["+deviation.getUrl()+"]");
                 String correctedUrl = deviation.getUrl() + "&page=Context";
-                System.out.println("Corrected Url: ["+correctedUrl+"]");
-
                 String base64Url = Base64.encodeBase64URLSafeString(correctedUrl.getBytes());
 
                 deviation.setUrl(linkoutBase + base64Url);
