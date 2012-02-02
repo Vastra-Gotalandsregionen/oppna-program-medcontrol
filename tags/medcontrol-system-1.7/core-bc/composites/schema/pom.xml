@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+  This is the Schema-composite that produces a jar of JAX-WS interfaces (SEI) - and JAXB2 binding classes for the
+  contained schemas. Template version: 1.2-SNAPSHOT Generation time : 2009-12-09 10:55:56 CET
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>se.vgregion.medcontrol</groupId>
+    <artifactId>medcontrol-core-bc</artifactId>
+    <version>1.7</version>
+  </parent>
+  <groupId>se.vgregion.medcontrol</groupId>
+  <artifactId>medcontrol-core-bc-composite-schema</artifactId>
+  <packaging>jar</packaging>
+  <name>${project.artifactId}</name>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>1</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlDirectory>${basedir}/../schema/src/main/wsdl</wsdlDirectory>
+              <wsdlFiles>
+                <wsdlFile>MyCasesService.asmx.wsdl</wsdlFile>
+              </wsdlFiles>
+              <packageName>se.vgregion.portal.medcontrol.ws</packageName>
+              <extension>true</extension>
+              <sourceDestDir>${project.build.directory}/generated-sources/jaxws</sourceDestDir>
+              <staleFile>${project.build.directory}/generated-sources/jaxws/stale/.staleFlagMedcontrol</staleFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <instrumentation>
+            <excludes>
+              <exclude>se/vgregion/portal/medcontrol/ws/*.class</exclude>
+            </excludes>
+          </instrumentation>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-frontend-jaxws</artifactId>
+      <version>${apache.cxf.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-transports-http</artifactId>
+      <version>${apache.cxf.version}</version>
+    </dependency>
+  </dependencies>
+
+</project>
