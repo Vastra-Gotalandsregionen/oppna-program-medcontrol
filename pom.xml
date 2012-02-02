@@ -16,7 +16,7 @@
   <groupId>se.vgregion.medcontrol</groupId>
   <artifactId>medcontrol-system</artifactId>
   <packaging>pom</packaging>
-  <version>1.8-SNAPSHOT</version>
+  <version>1.7-SNAPSHOT</version>
   <name>${project.artifactId}</name>
 
   <properties>
