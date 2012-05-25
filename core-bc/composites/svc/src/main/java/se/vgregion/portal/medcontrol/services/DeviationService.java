@@ -36,5 +36,5 @@ public interface DeviationService {
      * @param userId  To get DeviationCase(s) for.
      * @return List of {@link DeviationCase}
      */
-    List<DeviationCase> listDeviationCases(String userId);
+    List<DeviationCase> listDeviationCases(String userId) throws MedControlDeviationServiceException;
 }

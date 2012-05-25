@@ -78,7 +78,7 @@ public class MedcontrolDeviationServiceTest {
     }
 
     @Test
-    public void testListDeviationCases() {
+    public void testListDeviationCases() throws MedControlDeviationServiceException {
         List<DeviationCase> listDeviationCases = medControlDeviationService.listDeviationCases(USER_1);
         assertEquals(2, listDeviationCases.size());
         // Assert case 1
@@ -98,22 +98,21 @@ public class MedcontrolDeviationServiceTest {
     }
 
     @Test
-    public void testNullUser() {
+    public void testNullUser() throws MedControlDeviationServiceException {
         List<DeviationCase> listDeviationCases = medControlDeviationService.listDeviationCases(null);
         assertNull(listDeviationCases);
     }
 
     @Test
-    public void testNullDateValue() {
+    public void testNullDateValue() throws MedControlDeviationServiceException {
         mockMyCasesServiceSoap.getMockArrayOfCase().getCase().clear();
         mockMyCasesServiceSoap.getMockArrayOfCase().getCase().addAll(Arrays.asList(new Case()));
         List<DeviationCase> listDeviationCases = medControlDeviationService.listDeviationCases(USER_1);
         assertEquals(1, listDeviationCases.size());
     }
 
-    @Test(expected = RuntimeException.class)
-    @Ignore
-    public void testWebServiceException() {
+    @Test(expected = MedControlDeviationServiceException.class)
+    public void testWebServiceException() throws MedControlDeviationServiceException {
         mockMyCasesServiceSoap.setThrowException(true);
         StringWriter loggerView = getLoggerView(Level.ERROR);
         medControlDeviationService.listDeviationCases(USER_1);

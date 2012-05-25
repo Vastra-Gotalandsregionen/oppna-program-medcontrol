@@ -71,11 +71,13 @@ public class MedControlDeviationService implements DeviationService {
      * {@inheritDoc}
      */
     @Override
-    public List<DeviationCase> listDeviationCases(String userId) {
+    public List<DeviationCase> listDeviationCases(String userId) throws MedControlDeviationServiceException {
         if (StringUtils.isBlank(userId)) return null;
 
         List<Case> cases = callService(userId, true, false, "sv-SE");
-        if (cases == null) return null;
+        if (cases == null) {
+            return null;
+        }
 
         List<DeviationCase> deviationCases = new ArrayList<DeviationCase>();
         for (Case medControlCase : cases) {
@@ -137,7 +139,7 @@ public class MedControlDeviationService implements DeviationService {
      * True, true - Meningslös kombination, funkar säkert men svaret är lite odefinierat.
      */
     private List<Case> callService(String userId, boolean checkForActingRole, boolean includeActingRoleOnly,
-            String locale) {
+            String locale) throws MedControlDeviationServiceException {
         try {
             checkWSAccessible();
         } catch (Exception ex) {
@@ -153,8 +155,7 @@ public class MedControlDeviationService implements DeviationService {
             // We got an exception, reset so we try to reinit it again
             // the next time, in case it was temporarily down
             myCasesServiceSoap = null;
-            LOGGER.error(e.getMessage(), e);
-            return null;
+            throw new MedControlDeviationServiceException(e);
         }
     }
 
