@@ -34,7 +34,6 @@ import se.vgregion.portal.medcontrol.domain.DeviationCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.portlet.MockPortletConfig;
-import org.springframework.mock.web.portlet.MockPortletPreferences;
 import org.springframework.mock.web.portlet.MockRenderRequest;
 import org.springframework.mock.web.portlet.MockRenderResponse;
 import org.springframework.ui.ModelMap;

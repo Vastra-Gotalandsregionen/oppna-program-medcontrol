@@ -9,6 +9,7 @@
     <groupId>se.vgregion.medcontrol</groupId>
     <artifactId>medcontrol-core-bc</artifactId>
     <version>1.8-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
   <groupId>se.vgregion.medcontrol</groupId>
   <artifactId>medcontrol-core-bc-composite-schema</artifactId>
