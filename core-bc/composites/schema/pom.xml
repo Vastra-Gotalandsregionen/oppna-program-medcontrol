@@ -28,10 +28,9 @@
               <goal>wsimport</goal>
             </goals>
             <configuration>
-              <wsdlDirectory>${basedir}/../schema/src/main/wsdl</wsdlDirectory>
-              <wsdlFiles>
-                <wsdlFile>MyCasesService.asmx.wsdl</wsdlFile>
-              </wsdlFiles>
+              <wsdlUrls>
+                <wsdlUrl>http://medcontrol.vgregion.se/MyCasesService/MyCasesService.asmx?wsdl</wsdlUrl>
+              </wsdlUrls>
               <packageName>se.vgregion.portal.medcontrol.ws</packageName>
               <extension>true</extension>
               <sourceDestDir>${project.build.directory}/generated-sources/jaxws</sourceDestDir>
