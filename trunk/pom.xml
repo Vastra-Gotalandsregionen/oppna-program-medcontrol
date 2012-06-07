@@ -16,7 +16,7 @@
   <groupId>se.vgregion.medcontrol</groupId>
   <artifactId>medcontrol-system</artifactId>
   <packaging>pom</packaging>
-  <version>1.8-SNAPSHOT</version>
+  <version>1.8</version>
   <name>${project.artifactId}</name>
 
   <properties>
@@ -37,7 +37,7 @@
   </dependencies>
 
   <scm>
-    <developerConnection>scm:svn:https://oppna-program-medcontrol.googlecode.com/svn/trunk</developerConnection>
-    <url>http://oppna-program-medcontrol.googlecode.com/svn/trunk</url>
+    <developerConnection>scm:svn:https://oppna-program-medcontrol.googlecode.com/svn/tags/medcontrol-system-1.8</developerConnection>
+    <url>http://oppna-program-medcontrol.googlecode.com/svn/tags/medcontrol-system-1.8</url>
   </scm>
 </project>
