@@ -42,12 +42,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.sun.portal</groupId>
-      <artifactId>portlet-container</artifactId>
-      <version>2.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>se.vgregion.javg</groupId>
       <artifactId>javg-rt-support</artifactId>
       <version>${javg.version}</version>

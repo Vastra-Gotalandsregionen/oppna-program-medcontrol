@@ -20,7 +20,7 @@
   <name>${project.artifactId}</name>
 
   <properties>
-    <hsatools.version>1.0</hsatools.version>
+    <hsatools.version>1.3.5</hsatools.version>
   </properties>
   
   <modules>
@@ -29,7 +29,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>HsaTools</groupId>
+      <groupId>se.vgregion.HsaTools</groupId>
       <artifactId>HsaTools-Mocks</artifactId>
       <version>${hsatools.version}</version>
       <scope>test</scope>
